@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Category, type: :model do
+  REPEITED_TITLE = 'A title'
   context 'Attributes' do
     it { should respond_to(:title) }
   end
@@ -15,8 +16,8 @@ RSpec.describe Category, type: :model do
     end
 
     it 'is invalid if not uniq title is provided' do
-      create(:category)
-      expect(build(:category)).to be_invalid
+      create(:category, title: REPEITED_TITLE)
+      expect(build(:category, title: REPEITED_TITLE)).to be_invalid
     end
   end
 
@@ -24,9 +25,5 @@ RSpec.describe Category, type: :model do
     it 'has many books' do
       expect(build(:category)).to respond_to(:books)
     end
-  end
-
-  context 'Class and instance methods' do
-
   end
 end

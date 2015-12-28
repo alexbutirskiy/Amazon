@@ -4,3 +4,5 @@ rvm:
 before_install: gem install bundler -v 1.10.6
 before_script:
   - "rake db:migrate RAILS_ENV=test"
+
+script: bundle exec rspec spec -fd

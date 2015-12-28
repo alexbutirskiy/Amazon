@@ -1,6 +1,8 @@
 FactoryGirl.define do
   factory :category do
-    title "Programming"
+    sequence :title do |n|
+      "Category \##{n}"
+    end
   end
 
   after(:build) do |category|
