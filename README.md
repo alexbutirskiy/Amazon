@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/alexbutirskiy/Amazon.svg?branch=master)](https://travis-ci.org/alexbutirskiy/Amazon)
+
 # RubygarageAmazon.
 Business logic structure:
 
