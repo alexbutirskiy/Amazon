@@ -17,7 +17,7 @@ RSpec.describe CreditCard, type: :model do
 
     REQUIRED_FIELDS.each do |attribute|
       it "is invalid if #{attribute} does not provided" do
-        expect(build(:credit_card, "#{attribute}".to_sym => nil)).to be_invalid
+        expect(build(:credit_card, "#{attribute}" => nil)).to be_invalid
       end
     end
   end

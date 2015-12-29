@@ -16,7 +16,7 @@ RSpec.describe Address, type: :model do
 
     REQUIRED_FIELDS.each do |attribute|
       it "is invalid if #{attribute} does not provided" do
-        expect(build(:address, "#{attribute}".to_sym => nil)).to be_invalid
+        expect(build(:address, "#{attribute}" => nil)).to be_invalid
       end
     end
   end
