@@ -27,9 +27,9 @@ RSpec.describe CreditCard, type: :model do
       expect(create(:credit_card)).to respond_to(:customer)
     end
 
-    # it "has many 'orders'" do
-    #   expect(create(:orders)).to respond_to(:orders)
-    # end
+    it "has many 'orders'" do
+      expect(create(:credit_card)).to respond_to(:orders)
+    end
   end
 
   context 'Callbacks' do
