@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151229103411) do
+ActiveRecord::Schema.define(version: 20151229111036) do
 
   create_table "authors", force: :cascade do |t|
     t.string   "firstname"
@@ -40,6 +40,20 @@ ActiveRecord::Schema.define(version: 20151229103411) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "credit_cards", force: :cascade do |t|
+    t.string   "number"
+    t.string   "CVV"
+    t.integer  "expiration_month"
+    t.integer  "expiration_year"
+    t.string   "firstname"
+    t.string   "lastname"
+    t.integer  "customer_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "credit_cards", ["customer_id"], name: "index_credit_cards_on_customer_id"
 
   create_table "ratings", force: :cascade do |t|
     t.text     "text"

@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Author, type: :model do
+  AUTHOR_NAME = 'Name'
+  AUTHOR_SURNAME = 'Surname'
   context 'Attributes' do
     %w{ firstname lastname biography }.each do |attribute|
       it { should respond_to(attribute) }
@@ -29,7 +31,8 @@ RSpec.describe Author, type: :model do
 
   context 'Class and instance methods' do
     it "has a 'name' method" do
-      expect(build(:author).name).to match("#{AUTHOR_NAME} #{AUTHOR_SURNAME}")
+      expect(build(:author, firstname: AUTHOR_NAME, lastname: AUTHOR_SURNAME)
+        .name).to match("#{AUTHOR_NAME} #{AUTHOR_SURNAME}")
     end
   end
 end

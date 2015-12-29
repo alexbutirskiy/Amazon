@@ -1,10 +1,8 @@
 FactoryGirl.define do
-  AUTHOR_NAME = 'Aaron'
-  AUTHOR_SURNAME = 'Sumner'
   factory :author do
-    firstname AUTHOR_NAME
-    lastname AUTHOR_SURNAME
-    biography "One day he became a programmer"
+    firstname Faker::Name.first_name
+    lastname Faker::Name.last_name
+    biography Faker::Lorem.paragraph
   end
 
 end

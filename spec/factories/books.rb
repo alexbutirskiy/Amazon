@@ -1,9 +1,9 @@
 FactoryGirl.define do
   factory :book do
-    title "Everyday Rails Spec"
-    description "Perfect reading to start using RSpec with Rails"
-    price 11.50
-    in_stock 3
+    title Faker::Book.title
+    description Faker::Lorem.paragraph
+    price Faker::Commerce.price
+    in_stock Faker::Number.number(2).to_i
     author
     category
 

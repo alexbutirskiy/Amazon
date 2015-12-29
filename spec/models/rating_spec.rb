@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Rating, type: :model, focus: true do
+RSpec.describe Rating, type: :model, focus: false do
   context 'Attributes' do
     %w{ text value }.each do |attribute|
       it { should respond_to(attribute) }
@@ -22,7 +22,9 @@ RSpec.describe Rating, type: :model, focus: true do
 
   context 'Associations' do
     %w{ book customer }.each do |attribute|
-      it { should respond_to(attribute) }
+      it "belongs to '#{attribute}'" do
+        expect(create(:rating)).to respond_to(attribute)
+      end
     end
   end
 end
