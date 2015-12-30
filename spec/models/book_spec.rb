@@ -65,16 +65,16 @@ RSpec.describe Book, type: :model, focus: false do
 
   context 'Class and instance methods' do
     before do
-      create_list(:book, IN_STOCK)
-      create_list(:out_of_stock_book, OUT_OF_STOCK)
+      @in_stock = create_list(:book, IN_STOCK)
+      @out_of_stock = create_list(:out_of_stock_book, OUT_OF_STOCK)
     end
 
     it "returns a list of books in stock" do
-      expect(Book.in_stock.size).to eq IN_STOCK
+      expect(Book.in_stock).to eq @in_stock
     end
 
     it "returns a list of books out of stock" do
-      expect(Book.out_of_stock.size).to eq OUT_OF_STOCK
+      expect(Book.out_of_stock).to eq @out_of_stock
     end
   end
 end
