@@ -5,7 +5,7 @@ class Book < ActiveRecord::Base
   before_validation :check_in_stock
 
   validates :title, presence: true
-  validates :price, numericality: { greater_than: 0 }
+  validates :price, presence: true, numericality: { greater_than: 0 }
   validates :in_stock, numericality: { greater_than_or_equal_to: 0 }
 
   validate :check_price

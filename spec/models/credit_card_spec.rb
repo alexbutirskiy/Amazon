@@ -1,11 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe CreditCard, type: :model do
-  REQUIRED_FIELDS = %w{ number CVV expiration_month expiration_year 
-    firstname lastname }
+    
+  requaired_fields = %w{ number CVV expiration_month expiration_year firstname 
+    lastname }
 
   context 'Attributes' do
-    REQUIRED_FIELDS.each do |attribute|
+    requaired_fields.each do |attribute|
+      it { should have_db_column(attribute) }
       it { should respond_to(attribute) }
     end
   end
@@ -15,21 +17,14 @@ RSpec.describe CreditCard, type: :model do
       expect(build(:credit_card)).to be_valid
     end
 
-    REQUIRED_FIELDS.each do |attribute|
-      it "is invalid if #{attribute} does not provided" do
-        expect(build(:credit_card, "#{attribute}" => nil)).to be_invalid
-      end
+    requaired_fields.each do |attribute|
+      it { should validate_presence_of(attribute) }
     end
   end
 
   context 'Associations' do
-    it "belongs to 'customer'" do
-      expect(create(:credit_card)).to respond_to(:customer)
-    end
-
-    it "has many 'orders'" do
-      expect(create(:credit_card)).to respond_to(:orders)
-    end
+    it { should belong_to(:customer) }
+    it { should have_many(:orders) }
   end
 
   context 'Callbacks' do

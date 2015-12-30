@@ -1,10 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Address, type: :model do
-  REQUIRED_FIELDS = %w{ address zipcode city phone country }
+  requaired_fields = %w{ address zipcode city phone country }
 
   context 'Attributes' do
-    REQUIRED_FIELDS.each do |attribute|
+    requaired_fields.each do |attribute|
+      it { should have_db_column(attribute) }
       it { should respond_to(attribute) }
     end
   end
@@ -14,10 +15,8 @@ RSpec.describe Address, type: :model do
       expect(build(:address)).to be_valid
     end
 
-    REQUIRED_FIELDS.each do |attribute|
-      it "is invalid if #{attribute} does not provided" do
-        expect(build(:address, "#{attribute}" => nil)).to be_invalid
-      end
+    requaired_fields.each do |attribute|
+      it { should validate_presence_of(attribute) }
     end
   end
 end

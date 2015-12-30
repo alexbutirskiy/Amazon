@@ -5,6 +5,7 @@ RSpec.describe Author, type: :model do
   AUTHOR_SURNAME = 'Surname'
   context 'Attributes' do
     %w{ firstname lastname biography }.each do |attribute|
+      it { should have_db_column(attribute) }
       it { should respond_to(attribute) }
     end
   end
@@ -14,19 +15,12 @@ RSpec.describe Author, type: :model do
       expect(build(:author)).to be_valid
     end
 
-    it 'is valid if no firstname provided' do
-      expect(build(:author, firstname: nil)).to be_invalid
-    end
-
-    it 'is valid if no lastname provided' do
-      expect(build(:author, lastname: nil)).to be_invalid
-    end
+    it { should validate_presence_of(:firstname) }
+    it { should validate_presence_of(:lastname) }
   end
 
   context 'Associations' do
-    it 'has many books' do
-      expect(build(:author)).to respond_to(:books)
-    end
+    it { should have_many(:books) }
   end
 
   context 'Class and instance methods' do

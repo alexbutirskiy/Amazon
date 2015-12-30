@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Country, type: :model do
   REPEITED_COUNTRY = 'USA'
   context 'Attributes' do
+    it { should have_db_column(:name) }
     it { should respond_to(:name) }
   end
 
@@ -11,13 +12,7 @@ RSpec.describe Country, type: :model do
       expect(build(:country)).to be_valid
     end
 
-    it 'is invalid if no title is provided' do
-      expect(build(:country, name: nil)).to be_invalid
-    end
-
-    it 'is invalid if not uniq title is provided' do
-      create(:country, name: REPEITED_COUNTRY)
-      expect(build(:country, name: REPEITED_COUNTRY)).to be_invalid
-    end
+    it { should validate_presence_of(:name) }
+    it { should validate_uniqueness_of(:name).case_insensitive }
   end
 end

@@ -6,6 +6,7 @@ RSpec.describe Book, type: :model, focus: false do
 
   context 'Attributes' do
     %w{ title description price in_stock }.each do |attribute|
+      it { should have_db_column(attribute) }
       it { should respond_to(attribute) }
     end
   end
@@ -15,41 +16,21 @@ RSpec.describe Book, type: :model, focus: false do
       expect(build(:book)).to be_valid
     end
 
-    it "is invalid without a 'title'" do
-      expect(build(:book, title: nil).errors[:title]).to include("can't be blank")
-    end
-
-    it "is invalid without a 'price'" do
-      expect(build(:book, price: nil).errors[:price]).to include("is not a number")
-    end
-
-    it "is invalid if 'price' is not a numeric" do
-      expect(build(:book, price: 'ten')).to be_invalid
-    end    
-
-    it "does not allow 'price' to be zero or negative" do
-      expect(build(:book, price: 0)).to be_invalid
-      expect(build(:book, price: -1)).to be_invalid
-    end
+    it { should validate_presence_of(:title) }
+    it { should validate_presence_of(:price) }
+    it { should validate_numericality_of(:price).is_greater_than(0) }
 
     it "does not allow more than 2 digits after a point in a 'price'" do
       expect(build(:book, price: 10.235)).to be_invalid
     end
 
-    it "is invalid if 'in_stock' is not a numeric" do
-      expect(build(:book, in_stock: 'two')).to be_invalid
-    end
-
-    it "is invalid if 'in_stock' is less than 0" do
-      expect(build(:book, in_stock: -1)).to be_invalid
-    end
+    it { should validate_numericality_of(:in_stock)
+      .is_greater_than_or_equal_to(0) }
   end
 
   context 'Associations' do
-    %w{ author category }.each do |a|
-      it "belongs to '#{a}'" do
-        expect(create(:book)).to respond_to(a)
-      end
+    %w{ author category }.each do |attribute|
+      it { should belong_to(attribute) }
     end
   end
 

@@ -1,11 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Customer, type: :model do
-  REQUIRED_FIELDS = %w{ email password firstname lastname }
+  requaired_fields = %w{ email password firstname lastname }
   REPEATED_EMAIL = 'somebody@somewhere.com'
 
   context 'Attributes' do
-    REQUIRED_FIELDS.each do |attribute|
+    requaired_fields.each do |attribute|
+      it { should respond_to(attribute) }
       it { should respond_to(attribute) }
     end
   end
@@ -15,23 +16,16 @@ RSpec.describe Customer, type: :model do
       expect(build(:customer)).to be_valid
     end
 
-    REQUIRED_FIELDS.each do |attribute|
-      it "is invalid if #{attribute} does not provided" do
-        expect(build(:customer, "#{attribute}" => nil)).to be_invalid
-      end
+    requaired_fields.each do |attribute|
+      it { should validate_presence_of(attribute) }
     end
 
-    it 'is valid if email is not uniq' do
-      create(:customer, email: REPEATED_EMAIL)
-      expect(build(:customer, email: REPEATED_EMAIL)).to be_invalid
-    end
+    it { should validate_uniqueness_of(:email).case_insensitive }
   end
 
   context 'Associations' do
     %w{ orders ratings }.each do |association|
-      it "has many '#{association}'" do
-        expect(create(:customer)).to respond_to(:association)
-      end
+      it { should have_many(association) }
     end
   end
 
