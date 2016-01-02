@@ -13,6 +13,8 @@ class Book < ActiveRecord::Base
   scope :in_stock, -> { where("in_stock > 0") }
   scope :out_of_stock, -> { where("in_stock = 0") }
 
+  private
+  
   def check_in_stock
     self.in_stock ||= 0
   end

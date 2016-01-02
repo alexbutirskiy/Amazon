@@ -34,6 +34,8 @@ RSpec.describe Customer, type: :model do
   end
 
   context 'Class and instance methods' do
-
+    it 'should create new order' do
+      expect(build(:customer).orders).to respond_to :new
+    end
   end
 end

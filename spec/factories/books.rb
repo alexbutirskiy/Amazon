@@ -1,9 +1,9 @@
 FactoryGirl.define do
   factory :book do
-    title Faker::Book.title
-    description Faker::Lorem.paragraph
-    price Faker::Commerce.price
-    in_stock Faker::Number.number(2).to_i
+    title { Faker::Book.title }
+    description { Faker::Lorem.paragraph }
+    price { Faker::Commerce.price }
+    in_stock { Faker::Number.number(2).to_i }
     author
     category
 
