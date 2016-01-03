@@ -1,13 +1,19 @@
 class Order < ActiveRecord::Base
-  IN_PROGRESS = 'in_progress'
-  COMPLETED = 'completed'
-  SHIIPED = 'shipped'
-  STATES = [IN_PROGRESS, COMPLETED, SHIIPED]
+  class States
+    IN_PROGRESS = 'in_progress'
+    COMPLETED = 'completed'
+    SHIIPED = 'shipped'
+
+    def self.all
+      constants.map {|c| const_get(c)}
+    end
+  end
 
   belongs_to :customer
   belongs_to :credit_card
   belongs_to :billing_address, class_name: 'Address'
   belongs_to :shipping_address, class_name: 'Address'
+  has_many :order_items
 
   validates :total_price, presence: true
   validates :completed_date, presence: true
@@ -16,16 +22,29 @@ class Order < ActiveRecord::Base
   validate :check_state
 
   after_initialize :set_state
+  before_update :set_total_price
+
+  def add_book(book, quantity = 1)
+    price = book.price * quantity
+    order_items.create(book: book, quantity: quantity, price: price)
+    save
+  end
 
   private
 
   def set_state
-    self.state ||= IN_PROGRESS
+    self.state ||= States::IN_PROGRESS
   end
 
   def check_state
-    unless STATES.include?(self.state)
-      errors.add(:state, "state '#{self.state}' is not allowed")
+    unless States.all.include?(state)
+      errors.add(:state, "state '#{state}' is not allowed")
+    end
+  end
+
+  def set_total_price
+    self.total_price = order_items.inject(0) do |sum, item|
+      sum += item.quantity * item.book.price
     end
   end
 end
