@@ -19,4 +19,13 @@ RSpec.describe Address, type: :model do
       it { should validate_presence_of(attribute) }
     end
   end
+
+  context 'Class and instance methods' do
+    it 'should have #orders method' do
+      addr = create(:address)
+      order1 = create(:order, shipping_address: addr)
+      order2 = create(:order, billing_address: addr)
+      expect(addr.orders).to match_array([order1, order2])
+    end
+  end
 end
