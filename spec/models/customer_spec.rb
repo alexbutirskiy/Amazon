@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Customer, type: :model do
-  requaired_fields = %w{ email password firstname lastname }
+  requaired_fields = %w(email password firstname lastname)
   REPEATED_EMAIL = 'somebody@somewhere.com'
 
   context 'Attributes' do
@@ -24,13 +24,12 @@ RSpec.describe Customer, type: :model do
   end
 
   context 'Associations' do
-    %w{ orders ratings }.each do |association|
+    %w(orders ratings).each do |association|
       it { should have_many(association) }
     end
   end
 
   context 'Callbacks' do
-
   end
 
   context 'Class and instance methods' do

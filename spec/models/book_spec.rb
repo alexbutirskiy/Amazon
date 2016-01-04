@@ -5,7 +5,7 @@ RSpec.describe Book, type: :model, focus: false do
   OUT_OF_STOCK = 8
 
   context 'Attributes' do
-    %w{ title description price in_stock }.each do |attribute|
+    %w(title description price in_stock).each do |attribute|
       it { should have_db_column(attribute) }
       it { should respond_to(attribute) }
     end
@@ -25,11 +25,11 @@ RSpec.describe Book, type: :model, focus: false do
     end
 
     it { should validate_numericality_of(:in_stock)
-      .is_greater_than_or_equal_to(0) }
+          .is_greater_than_or_equal_to(0) }
   end
 
   context 'Associations' do
-    %w{ author category }.each do |attribute|
+    %w(author category).each do |attribute|
       it { should belong_to(attribute) }
     end
   end
@@ -50,11 +50,11 @@ RSpec.describe Book, type: :model, focus: false do
       @out_of_stock = create_list(:out_of_stock_book, OUT_OF_STOCK)
     end
 
-    it "returns a list of books in stock" do
+    it 'returns a list of books in stock' do
       expect(Book.in_stock).to eq @in_stock
     end
 
-    it "returns a list of books out of stock" do
+    it 'returns a list of books out of stock' do
       expect(Book.out_of_stock).to eq @out_of_stock
     end
   end

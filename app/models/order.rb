@@ -5,7 +5,7 @@ class Order < ActiveRecord::Base
     SHIIPED = 'shipped'
 
     def self.all
-      constants.map {|c| const_get(c)}
+      constants.map { |c| const_get(c) }
     end
   end
 
@@ -37,14 +37,13 @@ class Order < ActiveRecord::Base
   end
 
   def check_state
-    unless States.all.include?(state)
-      errors.add(:state, "state '#{state}' is not allowed")
-    end
+    return if States.all.include?(state)
+    errors.add(:state, "state '#{state}' is not allowed")
   end
 
   def set_total_price
     self.total_price = order_items.inject(0) do |sum, item|
-      sum += item.quantity * item.book.price
+      sum + item.quantity * item.book.price
     end
   end
 end

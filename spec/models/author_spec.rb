@@ -4,7 +4,7 @@ RSpec.describe Author, type: :model do
   AUTHOR_NAME = 'Name'
   AUTHOR_SURNAME = 'Surname'
   context 'Attributes' do
-    %w{ firstname lastname biography }.each do |attribute|
+    %w(firstname lastname biography).each do |attribute|
       it { should have_db_column(attribute) }
       it { should respond_to(attribute) }
     end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
-  requaired_fields = %w{ total_price completed_date state }
+  requaired_fields = %w(total_price completed_date state)
   context 'Attributes' do
     requaired_fields.each do |attribute|
       it { should have_db_column(attribute) }
@@ -31,7 +31,6 @@ RSpec.describe Order, type: :model do
     it "should deny to set 'state' attribute with wrong state" do
       expect(build(:order, state: 'illegal_state')).to be_invalid
     end
-
   end
 
   context 'Associations' do
@@ -48,28 +47,24 @@ RSpec.describe Order, type: :model do
   context 'Class and instance methods' do
     count1 = Faker::Number.number(1).to_i
     count2 = Faker::Number.number(2).to_i
+    let(:book) { create(:book) }
+    let(:book2) { create(:book) }
+    let(:order) { create(:order) }
+
     it 'has #add_book method' do
-      order = create(:order)
-      book = create(:book)
       items = double('Order Items')
       expect(order).to receive(:order_items).and_return(items)
-      expect(items).to receive(:create).with({
-        book: book,
-        quantity: count1, 
-        price: count1 * book.price })
+      expect(items).to receive(:create)
+        .with(book: book, quantity: count1, price: count1 * book.price)
       expect(order).to receive(:save)
       order.add_book book, count1
-      
     end
 
     it 'recalculates total_price on every update event' do
-      order = create(:order)
-      book1 = create(:book)
-      book2 = create(:book)
-      order.add_book book1, count1
-      expect(order.total_price).to eq count1 * book1.price
+      order.add_book book, count1
+      expect(order.total_price).to eq count1 * book.price
       order.add_book book2, count2
-      expect(order.total_price).to eq count1 * book1.price + count2 * book2.price
+      expect(order.total_price).to eq count1 * book.price + count2 * book2.price
     end
   end
 end

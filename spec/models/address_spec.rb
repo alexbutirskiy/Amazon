@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Address, type: :model do
-  requaired_fields = %w{ address zipcode city phone country }
+  requaired_fields = %w(address zipcode city phone country)
 
   context 'Attributes' do
     requaired_fields.each do |attribute|

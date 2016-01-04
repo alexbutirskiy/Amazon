@@ -1,9 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe CreditCard, type: :model do
-    
-  requaired_fields = %w{ number CVV expiration_month expiration_year firstname 
-    lastname }
+  requaired_fields = %w(number CVV expiration_month expiration_year firstname
+                        lastname)
 
   context 'Attributes' do
     requaired_fields.each do |attribute|
@@ -28,10 +27,8 @@ RSpec.describe CreditCard, type: :model do
   end
 
   context 'Callbacks' do
-
   end
 
   context 'Class and instance methods' do
-
   end
 end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe OrderItem, type: :model do
-  requaired_fields = %w{ price quantity }
+  requaired_fields = %w(price quantity)
 
   context 'Attributes' do
     requaired_fields.each do |attribute|
@@ -21,7 +21,7 @@ RSpec.describe OrderItem, type: :model do
   end
 
   context 'Associations' do
-    %w{ order book }.each do |association|
+    %w(order book).each do |association|
       it { should belong_to(association) }
     end
   end

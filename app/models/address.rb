@@ -6,8 +6,6 @@ class Address < ActiveRecord::Base
   validates :country, presence: true
 
   def orders
-    Order.where(
-      'billing_address_id = ? OR shipping_address_id = ?', 
-      self.id, self.id)
+    Order.where('billing_address_id = ? OR shipping_address_id = ?', id, id)
   end
 end
