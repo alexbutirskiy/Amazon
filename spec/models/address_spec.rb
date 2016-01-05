@@ -23,9 +23,10 @@ RSpec.describe Address, type: :model do
   context 'Class and instance methods' do
     it 'should have #orders method' do
       addr = create(:address)
-      order1 = create(:order, shipping_address: addr)
-      order2 = create(:order, billing_address: addr)
-      expect(addr.orders).to match_array([order1, order2])
+      order1 = create_list(:order, 10, shipping_address: addr)
+      order2 = create_list(:order, 10, billing_address: addr)
+      create_list(:order, 10)
+      expect(addr.orders).to match_array(order1 + order2)
     end
   end
 end
