@@ -22,15 +22,7 @@ RSpec.describe Order, type: :model do
       it { should validate_presence_of(attribute) }
     end
 
-    Order::States.all.each do |state|
-      it "should let to set 'state' attribute with '#{state}'" do
-        expect(build(:order, state: state)).to be_valid
-      end
-    end
-
-    it "should deny to set 'state' attribute with wrong state" do
-      expect(build(:order, state: 'illegal_state')).to be_invalid
-    end
+    it { should validate_inclusion_of(:state).in_array(Order::States.all) }
   end
 
   context 'Associations' do

@@ -17,9 +17,10 @@ class Order < ActiveRecord::Base
 
   validates :total_price, presence: true
   validates :completed_date, presence: true
-  validates :state, presence: true
-
-  validate :check_state
+  validates :state, 
+    presence: true, 
+    inclusion: { in: States.all, 
+      message: "is wrong, only #{States.all} states are allowed" }
 
   after_initialize :set_state
   before_update :set_total_price
@@ -34,11 +35,6 @@ class Order < ActiveRecord::Base
 
   def set_state
     self.state ||= States::IN_PROGRESS
-  end
-
-  def check_state
-    return if States.all.include?(state)
-    errors.add(:state, "state '#{state}' is not allowed")
   end
 
   def set_total_price
