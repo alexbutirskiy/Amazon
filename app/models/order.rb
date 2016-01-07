@@ -18,17 +18,16 @@ class Order < ActiveRecord::Base
   validates :total_price, presence: true
   validates :completed_date, presence: true
   validates :state, 
-    presence: true, 
     inclusion: { in: States.all, 
       message: "is wrong, only #{States.all} states are allowed" }
 
-  after_initialize :set_state
-  before_update :set_total_price
+  before_validation :set_state
+  before_save :update_total_price
 
   def add_book(book, quantity = 1)
     price = book.price * quantity
     order_items.create(book: book, quantity: quantity, price: price)
-    save
+    update_total_price
   end
 
   private
@@ -37,7 +36,7 @@ class Order < ActiveRecord::Base
     self.state ||= States::IN_PROGRESS
   end
 
-  def set_total_price
+  def update_total_price
     self.total_price = order_items.inject(0) do |sum, item|
       sum + item.quantity * item.book.price
     end
