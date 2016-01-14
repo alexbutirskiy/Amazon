@@ -20,9 +20,9 @@ RSpec.describe Book, type: :model, focus: false do
     it { should validate_presence_of(:price) }
     it { should validate_numericality_of(:price).is_greater_than(0) }
 
-    it "does not allow more than 2 digits after a point in a 'price'" do
-      expect(build(:book, price: 10.235)).to be_invalid
-    end
+    # it "does not allow more than 2 digits after a point in a 'price'" do
+    #   expect(build(:book, price: 10.235)).to be_invalid
+    # end
 
     it { should validate_numericality_of(:in_stock)
           .is_greater_than_or_equal_to(0) }

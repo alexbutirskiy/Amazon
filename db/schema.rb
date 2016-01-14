@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160102191523) do
+ActiveRecord::Schema.define(version: 20160114153909) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "address"
@@ -34,12 +34,12 @@ ActiveRecord::Schema.define(version: 20160102191523) do
   create_table "books", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
-    t.float    "price"
+    t.decimal  "price",       precision: 6, scale: 2
     t.integer  "in_stock"
     t.integer  "author_id"
     t.integer  "category_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   add_index "books", ["author_id"], name: "index_books_on_author_id"
@@ -81,25 +81,25 @@ ActiveRecord::Schema.define(version: 20160102191523) do
   end
 
   create_table "order_items", force: :cascade do |t|
-    t.float    "price"
+    t.decimal  "price",      precision: 6, scale: 2
     t.integer  "quantity"
     t.integer  "book_id"
     t.integer  "order_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   add_index "order_items", ["book_id"], name: "index_order_items_on_book_id"
   add_index "order_items", ["order_id"], name: "index_order_items_on_order_id"
 
   create_table "orders", force: :cascade do |t|
-    t.float    "total_price"
+    t.decimal  "total_price",         precision: 6, scale: 2
     t.date     "completed_date"
     t.string   "state"
     t.integer  "customer_id"
     t.integer  "credit_card_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.integer  "billing_address_id"
     t.integer  "shipping_address_id"
   end
