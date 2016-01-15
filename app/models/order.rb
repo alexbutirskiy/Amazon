@@ -24,6 +24,7 @@ class Order < ActiveRecord::Base
   before_validation :set_state
   before_save :update_total_price
 
+  # TODO What should we do if book price changes durign order?
   def add_book(book, quantity = 1)
     price = book.price * quantity
     order_items.create(book: book, quantity: quantity, price: price)
