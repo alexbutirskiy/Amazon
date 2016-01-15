@@ -10,7 +10,6 @@ RSpec.describe Book, type: :model, focus: false do
       it { should respond_to(attribute) }
     end
   end
-
   context 'Validation' do
     it "is valid if 'title', 'price', 'in_stock' are provided" do
       expect(build(:book)).to be_valid
@@ -25,9 +24,8 @@ RSpec.describe Book, type: :model, focus: false do
   end
 
   context 'Associations' do
-    %w(author category).each do |attribute|
-      it { should belong_to(attribute) }
-    end
+    it { should belong_to(:category) }
+    it { should have_many(:authors) }
   end
 
   context 'Callbacks' do
