@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160115104851) do
+ActiveRecord::Schema.define(version: 20160115143203) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "address"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20160115104851) do
   end
 
   add_index "books", ["category_id"], name: "index_books_on_category_id"
+  add_index "books", ["sold"], name: "index_books_on_sold"
 
   create_table "categories", force: :cascade do |t|
     t.string   "title"
