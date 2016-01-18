@@ -1,7 +1,35 @@
-#store_name, #shop_links, #cart_links, #user_links {
-  width: 25%; float: left;
+#header {
+  margin: 1em;
   text-align: center;
-  ul {
+  font-size: 1.2em;
+
+  .shop_name {
+    font-size: 1.8em;
+    font-weight: bolder;
+    a {
+      color: #111;
+    }
+    a:hover {
+      text-decoration: none;
+    }
+  }
+
+  .shop_links {
+    padding-top: 0.7em;
+    font-weight: bolder;
+  }
+
+  .cart {
+    padding-top: 0.7em;
+    font-weight: bolder;
+  }
+
+  .user {
+    font-size: 0.8em;
+    padding-top: 1em;
+  }
+
+  .with_delimiter {
     li {
       display: inline;
       padding-left: 0.3em;
@@ -12,23 +40,5 @@
       border-left: solid 2px grey;
     }
   }
-}
 
-#store_name a {
-  text-decoration: none;
-  color: inherit;
-  font-size: 1.2em;
-}
-
-#user_links {
-  font-size: 0.9em;
-}
-
-#header {
-  padding-top: 1em;
-  height: 2.0em;
-  background-color: #F8F8F8;
-  a:hover {
-    font-weight: bold;
-  }
 }

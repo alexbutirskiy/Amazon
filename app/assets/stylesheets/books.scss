@@ -2,26 +2,17 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.bestsellers {
-  margin-top: 2em;
-  h2 {
-    text-align: center;
+.bestseller {
+  .authors {
+    text-align: left;
   }
-
-  h3 {
-    float: left;
-    border: 1px solid;
-  }
-
-  img {
-    float: left;
+  .title {
+    font-size: 1.5em;
+    font-weight: bolder;
+    padding-right: 0.5em;
   }
 }
 
-.to_left {
-  //float: left;
-}
-
-.to_right {
-  float: right;
+.bbb {
+  border: 1px solid;
 }

@@ -1,9 +1,27 @@
-<div class='bestseller'>
-  <div class='sdfsfdsf'>
-    <h3 class = 'to_left'> <%= @bestseller.title %>, by </h3>
-    <%= link_to "#{authors_names(@bestseller.authors)}", author_path(1)  %>
+<div class='container bestseller'>
+  <div class='row'>
+    <div class='col-md-1'>
+    </div>
+
+    <div class='col-md-10'>
+      <div class='row'>
+        <div class='col-md-12'>
+          <p> <span class='title'><%= @bestseller.title %></span>   by <%= link_to "#{authors_names(@bestseller.authors)}", author_path(1)  %>
+          </p>
+        </div>
+      </div>
+
+      <div class='row'>
+        <div class='col-md-3'>
+          <%= image_tag 'default_cover.jpg' %>
+        </div>
+        <div class='col-md-9'>
+          <%= content_tag :p, @bestseller.description %>
+        </div>
+      </div>
+    </div>
+
+    <div class='col-md-1'>
+    </div>
   </div>
-  </br>
-  <%= image_tag 'default_cover.jpg', class: 'bestseller_image' %>
-  <%= content_tag :p, @bestseller.description %>
 </div>
