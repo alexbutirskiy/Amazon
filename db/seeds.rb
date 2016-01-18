@@ -23,7 +23,10 @@ if Rails.env == "development"
       category: Category.all.sample,
       title: Faker::Book.title,
       price: (Faker::Commerce.price+1),
-      description: Faker::Lorem.paragraph)
+      description: Faker::Lorem.paragraph,
+      in_stock: rand(10),
+      sold: rand(20)
+    )
 
     rand(1..3).times do
       b.authors << Author.all.sample

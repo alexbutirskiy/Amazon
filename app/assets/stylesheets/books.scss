@@ -7,4 +7,21 @@
   h2 {
     text-align: center;
   }
+
+  h3 {
+    float: left;
+    border: 1px solid;
+  }
+
+  img {
+    float: left;
+  }
+}
+
+.to_left {
+  //float: left;
+}
+
+.to_right {
+  float: right;
 }

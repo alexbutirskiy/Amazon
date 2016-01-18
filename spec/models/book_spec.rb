@@ -21,6 +21,8 @@ RSpec.describe Book, type: :model, focus: false do
 
     it { should validate_numericality_of(:in_stock)
           .is_greater_than_or_equal_to(0) }
+
+    it { should validate_numericality_of(:sold).is_greater_than_or_equal_to(0) }
   end
 
   context 'Associations' do
@@ -29,12 +31,12 @@ RSpec.describe Book, type: :model, focus: false do
   end
 
   context 'Callbacks' do
-    it "sets 'in_stock' with zero if it's not provided" do
-      expect(create(:book, in_stock: nil).in_stock).to be_zero
+    it "sets 'in_stock' with zero as default" do
+      expect(Book.new.in_stock).to be_zero
     end
 
-    it "doesn't change 'in_stock' if it's Ok" do
-      expect(create(:book, in_stock: IN_STOCK).in_stock).to eq IN_STOCK
+    it "sets 'sold' with zero as default" do
+      expect(Book.new.sold).to be_zero
     end
   end
 

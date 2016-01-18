@@ -54,5 +54,7 @@ end
 
 group :test do
   gem 'database_cleaner'
-  gem 'shoulda-matchers', '~> 3.0'
+
+  #TODO Fix errors with version >= 3.1
+  gem 'shoulda-matchers', '~> 3.0.0'
 end

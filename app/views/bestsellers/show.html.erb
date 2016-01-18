@@ -1,0 +1,9 @@
+<div class='bestseller'>
+  <div class='sdfsfdsf'>
+    <h3 class = 'to_left'> <%= @bestseller.title %>, by </h3>
+    <%= link_to "#{authors_names(@bestseller.authors)}", author_path(1)  %>
+  </div>
+  </br>
+  <%= image_tag 'default_cover.jpg', class: 'bestseller_image' %>
+  <%= content_tag :p, @bestseller.description %>
+</div>
