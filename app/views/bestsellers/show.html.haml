@@ -1,0 +1,21 @@
+.container.bestseller
+  .row.vertical-align
+    .col-md-1= bestseller_prev_link
+
+    .col-md-10
+      .row
+        .col-md-12
+          %p
+            %span.title= @bestseller_current.title
+            by 
+            %html= authors_of_book_with_links.html_safe
+
+      .row
+        .col-md-3
+          %html= image_tag('default_cover.jpg')
+
+        .col-md-9
+          %html= content_tag(:p, @bestseller_current.description)
+
+    .col-md-1
+      %html= bestseller_next_link
