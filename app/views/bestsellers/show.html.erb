@@ -8,7 +8,8 @@
     <div class='col-md-10'>
       <div class='row'>
         <div class='col-md-12'>
-          <p> <span class='title'><%= @bestseller_current.title %></span> by <%= link_to "#{authors_names(@bestseller_current.authors)}", author_path(1)  %>
+          <p> <span class='title'><%= @bestseller_current.title %></span> by 
+            <%= authors_of_book_with_links.html_safe %>
           </p>
         </div>
       </div>
