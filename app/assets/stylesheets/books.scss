@@ -11,8 +11,34 @@
     font-weight: bolder;
     padding-right: 0.5em;
   }
+  .arrow {
+    font-size: 3em;
+    color: black;
+    text-decoration: none;
+  }
+
+  .active {
+    color: black;
+  }
+
+  .inactive {
+    color: grey;
+  }
+
+  .fa-caret-left {
+    float: right;
+  }
+
+  .fa-caret-right {
+    float: left;
+  }
 }
 
 .bbb {
   border: 1px solid;
+}
+
+.vertical-align {
+    display: flex;
+    align-items: center;
 }
