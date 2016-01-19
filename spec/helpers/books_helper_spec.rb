@@ -11,5 +11,29 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe BooksHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  describe '#authors_of_book_with_links' do
+    before do
+      @bestseller_current = create(:book)
+      @author_1 = create(:author)
+      @bestseller_current.authors << @author_1
+    end
+    context 'when book has one author' do
+      it 'returns link with author name' do
+        expect(authors_of_book_with_links).to match(/#{@author_1.id}/)
+        expect(authors_of_book_with_links).to match(/#{@author_1.name}/)
+      end
+    end
+
+    context 'when book has two authors' do
+      it 'returns link with author name' do
+        @author_2 = create(:author)
+        @bestseller_current.authors << @author_2
+        expect(authors_of_book_with_links).to match(/#{@author_1.id}/)
+        expect(authors_of_book_with_links).to match(/#{@author_2.id}/)
+        expect(authors_of_book_with_links).to match(/#{@author_1.name}/)
+        expect(authors_of_book_with_links).to match(/#{@author_2.name}/)
+      end
+    end
+  end
 end

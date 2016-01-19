@@ -7,7 +7,7 @@
         .col-md-12
           %p
             %span.title= @bestseller_current.title
-            by 
+            %html== by
             %html= authors_of_book_with_links.html_safe
 
       .row

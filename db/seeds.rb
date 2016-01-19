@@ -11,11 +11,11 @@ if Rails.env == "development"
     Category.create title: Faker::Book.genre
   end
 
-  50.times do
+  100.times do
     Author.create(
       firstname: Faker::Name.first_name,
       lastname: Faker::Name.last_name,
-      biography: Faker::Lorem.paragraph)
+      biography: Faker::Lorem.paragraph * 10)
   end
 
   500.times do
@@ -24,6 +24,7 @@ if Rails.env == "development"
       title: Faker::Book.title,
       price: (Faker::Commerce.price+1),
       description: Faker::Lorem.paragraph,
+      full_description: Faker::Lorem.paragraph * 5,
       in_stock: rand(10),
       sold: rand(20)
     )

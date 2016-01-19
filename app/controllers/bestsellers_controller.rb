@@ -14,7 +14,7 @@ class BestsellersController < ApplicationController
       @bestseller_next_id = 2
     when BESTSELLERS_COUNT
       @bestseller_previous_id = BESTSELLERS_COUNT - 1
-    else 
+    else
       @bestseller_previous_id = params[:id].to_i - 1
       @bestseller_next_id = params[:id].to_i + 1
     end
