@@ -3,6 +3,7 @@ rvm:
   - 2.2.2
 before_install: gem install bundler -v 1.10.6
 before_script:
+  - psql -c 'create database todo_test_db;' -U postgres
   - "bundle exec rake db:migrate RAILS_ENV=test"
 
 script: bundle exec rspec spec -fd

@@ -4,6 +4,7 @@ FactoryGirl.define do
     description { Faker::Lorem.paragraph }
     price { Faker::Commerce.price + 0.01}
     in_stock { Faker::Number.number(2).to_i }
+    sold { Faker::Number.number(2).to_i }
     category
 
     factory :out_of_stock_book do

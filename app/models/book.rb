@@ -1,4 +1,6 @@
 class Book < ActiveRecord::Base
+  BESTSELLERS_COUNT = 5
+
   has_many :book_authors
   has_many :authors, through: :book_authors
   belongs_to :category
@@ -13,6 +15,19 @@ class Book < ActiveRecord::Base
   scope :in_stock, -> { where('in_stock > 0') }
   scope :out_of_stock, -> { where('in_stock = 0') }
   scope :bestsellers, -> { order(sold: :desc) }
+
+  def self.bestseller(place)
+
+    unless (1..bestsellers_max).include?(place)
+      raise ActiveRecord::RecordNotFound, "Wrong place #{place} given"
+    end
+    
+    self.order(sold: :desc).offset(place - 1).limit(1).first
+  end
+
+  def self.bestsellers_max
+    [ Book.count, BESTSELLERS_COUNT ].min
+  end
 
   private
 
