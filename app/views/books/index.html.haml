@@ -2,13 +2,14 @@
   .row
     .col-md-9.shop_title
       Shop
-      .row
-        .col-md-3
-          = image_tag('default_cover.jpg')
-        .col-md-3
-          = image_tag('default_cover.jpg')
-        .col-md-3
-          = image_tag('default_cover.jpg')
+      - (@books.count / 3).times do |col|
+        .row
+          - 3.times do |row|
+            .col-md-4.book
+              = image_tag('default_cover.jpg')
+              - book = @books[ 3*row + col ]
+              %p= link_to( "#{book.title}", book_path(book))
+
     .col-md-3.categories
       SHOP BY CATEGORIES
       .row
