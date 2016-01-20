@@ -1,5 +1,6 @@
 class Book < ActiveRecord::Base
   BESTSELLERS_COUNT = 5
+  BOOKS_PER_PAGE = 9
 
   has_many :book_authors
   has_many :authors, through: :book_authors
@@ -16,9 +17,12 @@ class Book < ActiveRecord::Base
   scope :out_of_stock, -> { where('in_stock = 0') }
   scope :bestsellers, -> { order(sold: :desc) }
 
+  paginates_per BOOKS_PER_PAGE
+
   def self.bestseller(place)
 
     unless (1..bestsellers_max).include?(place)
+      byebug
       raise ActiveRecord::RecordNotFound, "Wrong place #{place} given"
     end
     

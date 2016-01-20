@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  root 'bestsellers#index'
+  root 'books#show_bestseller', defaults: {id: '1'}
 
   resources :books, only: [:index, :show] do
   end
