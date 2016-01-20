@@ -2,7 +2,7 @@
   .container
     .row
       .col-md-4.shop_name
-        %html= link_to("The Bookstore", root_path)
+        = link_to("The Bookstore", root_path)
 
       .col-md-3.shop_links
         %ul.with_delimiter
@@ -10,7 +10,7 @@
           %li= link_to "SHOP"
 
       .col-md-2.cart
-        %html= link_to "CART"
+        = link_to "CART"
 
       .col-md-3
         %ul.with_delimiter.user
