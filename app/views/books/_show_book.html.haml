@@ -1,0 +1,4 @@
+.col-md-4.book
+  = image_tag('default_cover.jpg')
+  - book = books[ 3*row + col ]
+  %p= link_to( "#{book.title}", book_path(book))

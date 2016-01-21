@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe CreditCard, type: :model do
+describe CreditCard, type: :model do
   requaired_fields = %w(number CVV expiration_month expiration_year firstname
                         lastname)
 

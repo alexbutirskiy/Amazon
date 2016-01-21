@@ -1,14 +1,19 @@
 .container.books
   .row
-    .col-md-9.shop_title
-      Shop
-      - (@books.count / 3).times do |col|
+    .col-md-9
+      .row.shop_title
+        Shop
+      .row
+      - (@books.count / 3).times do |row|
         .row
-          - 3.times do |row|
-            .col-md-4.book
-              = image_tag('default_cover.jpg')
-              - book = @books[ 3*row + col ]
-              %p= link_to( "#{book.title}", book_path(book))
+          - 3.times do |col|
+            = render 'show_book', books: @books, row: row, col: col
+      - rest = @books.count % 3
+      - if rest > 0
+        .row
+          - row = @books.count / 3
+          - rest.times do |col|
+            = render 'show_book', books: @books, row: row, col: col
 
     .col-md-3.categories
       SHOP BY CATEGORIES
@@ -18,3 +23,10 @@
       Category2
       .row
       Category3
+  .row
+    .col-md-3
+    .col-md-3.paginator
+      = paginate @books
+    .col-md-3
+    .col-md-3
+

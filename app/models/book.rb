@@ -22,7 +22,6 @@ class Book < ActiveRecord::Base
   def self.bestseller(place)
 
     unless (1..bestsellers_max).include?(place)
-      byebug
       raise ActiveRecord::RecordNotFound, "Wrong place #{place} given"
     end
     
