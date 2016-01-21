@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/alexbutirskiy/Amazon.svg?branch=master)](https://travis-ci.org/alexbutirskiy/Amazon)
+[![Test Coverage](https://codeclimate.com/github/alexbutirskiy/Amazon/badges/coverage.svg)](https://codeclimate.com/github/alexbutirskiy/Amazon/coverage)
 
 # RubygarageAmazon.
 Business logic structure:
