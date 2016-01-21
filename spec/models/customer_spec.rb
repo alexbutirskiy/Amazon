@@ -36,5 +36,18 @@ RSpec.describe Customer, type: :model do
     it 'should create new order' do
       expect(build(:customer).orders).to respond_to :new
     end
+
+    describe '#order_in_progress' do
+      it "returns an order with status 'in_progress'" do
+        customer = create(:customer)
+        create_list(:order, 10, 
+          customer: customer, 
+          state: Order::States::COMPLETED)
+        order = Order.all.order("RANDOM()").first
+        order.update(state: 'in_progress')
+
+        expect(customer.order_in_progress).to eq order
+      end
+    end
   end
 end
