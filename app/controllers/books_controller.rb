@@ -9,6 +9,11 @@ class BooksController < ApplicationController
 
   def show_bestseller
     @id = params[:id].to_i
-    @bestseller_current = Book.bestseller(@id)
+    begin
+      @bestseller_current = Book.bestseller(@id)
+    rescue ActiveRecord::RecordNotFound
+      raise if @id != 1
+      render 'no_book'
+    end
   end
 end
