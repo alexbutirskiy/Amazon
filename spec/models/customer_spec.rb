@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Customer, type: :model do
-  requaired_fields = %w(email password firstname lastname)
+  requaired_fields = %w(firstname lastname)
   REPEATED_EMAIL = 'somebody@somewhere.com'
 
   context 'Attributes' do
@@ -19,8 +19,6 @@ RSpec.describe Customer, type: :model do
     requaired_fields.each do |attribute|
       it { should validate_presence_of(attribute) }
     end
-
-    it { should validate_uniqueness_of(:email).case_insensitive }
   end
 
   context 'Associations' do

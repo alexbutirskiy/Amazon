@@ -61,6 +61,6 @@ group :test do
   gem 'database_cleaner'
   #TODO Fix errors with version >= 3.1
   gem 'shoulda-matchers', '~> 3.0.0'
-end
 
-gem "codeclimate-test-reporter", group: :test
+  gem "codeclimate-test-reporter"
+end
