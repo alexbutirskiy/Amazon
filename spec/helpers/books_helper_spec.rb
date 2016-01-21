@@ -29,10 +29,15 @@ RSpec.describe BooksHelper, type: :helper do
       it 'returns link with author name' do
         @author_2 = create(:author)
         @bestseller_current.authors << @author_2
-        expect(authors_of_book_with_links).to match(/#{@author_1.id}/)
-        expect(authors_of_book_with_links).to match(/#{@author_2.id}/)
-        expect(authors_of_book_with_links).to match(/#{@author_1.name}/)
-        expect(authors_of_book_with_links).to match(/#{@author_2.name}/)
+
+        expect(authors_of_book_with_links)
+          .to match(ERB::Util.html_escape(@author_2.id))
+        expect(authors_of_book_with_links)
+          .to match(ERB::Util.html_escape(@author_2.id))
+        expect(authors_of_book_with_links)
+          .to match(ERB::Util.html_escape(@author_1.name))
+        expect(authors_of_book_with_links)
+          .to match(ERB::Util.html_escape(@author_2.name))
       end
     end
   end
