@@ -1,0 +1,39 @@
+<div class='container devise'>
+  <div class='col-md-4'></div>
+  <div class='col-md-4'>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class='row'>
+      <div class="field col-md-12">
+        <%= f.email_field :email, autofocus: true %>
+      </div>
+    </div>
+
+    <div class='row'>
+      <div class="field col-md-12">
+        <%= f.password_field :password, autocomplete: "off" %>
+      </div>
+    </div>
+
+    <div class='row'>
+      <div class='col-md-3 actions'>
+        <%= f.submit "Sign in" %>
+      </div>
+
+      <% if devise_mapping.rememberable? -%>
+        <div class="field col-md-9">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me %>
+        </div>
+      <% end -%>
+    </div>
+
+    <% end %>
+
+    <div class='row col-md-4'>
+    <p>Forgot an account?</p>
+    </div>
+
+  </div>
+  <div class='col-md-4'></div>
+</div>
