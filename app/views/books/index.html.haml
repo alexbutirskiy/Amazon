@@ -1,8 +1,18 @@
 .container.books
   .row
     .col-md-9
-      .row.shop_title
-        Shop
+      - if @category
+        .row.category_link
+          = link_to 'Home', bestseller_path(1)
+          >>
+          = link_to 'Shop', books_path
+          >>
+          = link_to "#{@category.title}", books_path(category: @category.id)
+      .row.category_title
+        - if @category
+          = "Categories - #{@category.title}"
+        - else
+          Shop
       .row
       - (@books.count / 3).times do |row|
         .row
@@ -17,12 +27,9 @@
 
     .col-md-3.categories
       SHOP BY CATEGORIES
-      .row
-      Category1
-      .row
-      Category2
-      .row
-      Category3
+      - @categories.each do |category|
+        .row
+          = link_to "#{category.title}", books_path(category: category.id)
   .row
     .col-md-3
     .col-md-3.paginator

@@ -3,7 +3,15 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .books {
-  .shop_title {
+  .category_link {
+    margin-left: 0em;
+    a {
+      text-decoration: underline;
+    }
+  }
+
+  .category_title {
+    margin-left: 0em;
     font-size: 1.8em;
     font-weight: bolder;
   }

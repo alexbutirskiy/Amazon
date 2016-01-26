@@ -1,6 +1,13 @@
 class BooksController < ApplicationController
   def index
-    @books = Book.page params[:page]
+    @category = Category.find(params[:category]) if params[:category]
+
+    if @category
+      @books = Book.where(category: @category.id).page params[:page]
+    else
+      @books = Book.page params[:page]
+    end
+    @categories = Category.all
   end
 
   def show
