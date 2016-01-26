@@ -67,4 +67,8 @@ group :test do
   gem 'shoulda-matchers', '~> 3.0.0'
 
   gem "codeclimate-test-reporter"
+
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'launchy'
 end

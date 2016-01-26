@@ -15,7 +15,10 @@
           = link_to image_tag('default_cover.jpg'), book_path(@bestseller_current.id)
 
         .col-md-9
-          = content_tag(:p, @bestseller_current.description)
+          .row
+            = content_tag(:p, @bestseller_current.description)
+          .row.price
+            = "$#{@bestseller_current.price}"
 
     .col-md-1
       = bestseller_next_link
