@@ -15,11 +15,11 @@ class BooksController < ApplicationController
   end
 
   def show_bestseller
-    @id = params[:id].to_i
+    id = params[:id].to_i
     begin
-      @bestseller_current = Book.bestseller(@id)
+      @bestseller = Bestseller.new(id)
     rescue ActiveRecord::RecordNotFound
-      raise if @id != 1
+      raise if id != 1
       render 'no_book'
     end
   end

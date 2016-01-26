@@ -19,18 +19,18 @@ class Book < ActiveRecord::Base
 
   paginates_per BOOKS_PER_PAGE
 
-  def self.bestseller(place)
+  # def self.bestseller(place)
 
-    unless (1..bestsellers_max).include?(place)
-      raise ActiveRecord::RecordNotFound, "Wrong place #{place} given"
-    end
+  #   unless (1..bestsellers_max).include?(place)
+  #     raise ActiveRecord::RecordNotFound, "Wrong place #{place} given"
+  #   end
     
-    self.order(sold: :desc).offset(place - 1).limit(1).first
-  end
+  #   self.order(sold: :desc).offset(place - 1).limit(1).first
+  # end
 
-  def self.bestsellers_max
-    [ Book.count, BESTSELLERS_COUNT ].min
-  end
+  # def self.bestsellers_max
+  #   [ Book.count, BESTSELLERS_COUNT ].min
+  # end
 
   private
 

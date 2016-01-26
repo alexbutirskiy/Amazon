@@ -6,16 +6,16 @@
       .row
         .col-md-12
           %p
-            %span.title= @bestseller_current.title
+            %span.title= @bestseller.book.title
             by
             = authors_of_book_with_links.html_safe
 
       .row
         .col-md-3
-          = link_to image_tag('default_cover.jpg'), book_path(@bestseller_current.id)
+          = link_to image_tag('default_cover.jpg'), book_path(@bestseller.book.id)
 
         .col-md-9
-          = content_tag(:p, @bestseller_current.description)
+          = content_tag(:p, @bestseller.book.description)
 
     .col-md-1
       = bestseller_next_link
