@@ -1,1 +1,22 @@
-.conteiner
+.container.books
+  .row
+    .col-md-12
+      %h2= @book.title
+  .row
+    .col-md-4
+      = image_tag('default_cover.jpg', size: '300x300')
+    .col-md-8
+      .row
+        .col-md-6.price
+          = "$#{@book.price}"
+        .col-md-6
+          Add to cart form
+      .row
+        %p= @book.full_description
+
+.container.review
+  .row
+    .col-md-2
+      Reviews
+    .col-md-10
+      = link_to 'Add review for this book'
