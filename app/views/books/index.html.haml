@@ -26,7 +26,8 @@
             = render 'show_book', books: @books, row: row, col: col
 
     .col-md-3.categories
-      SHOP BY CATEGORIES
+      .row
+        SHOP BY CATEGORIES
       - @categories.each do |category|
         .row
           = link_to "#{category.title}", books_path(category: category.id)
