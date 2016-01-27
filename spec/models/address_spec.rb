@@ -2,9 +2,11 @@ require 'rails_helper'
 
 RSpec.describe Address, type: :model do
   requaired_fields = %w(address zipcode city phone country)
+  optional_fileds = %w(firstname lastname)
+  fields = requaired_fields + optional_fileds
 
   context 'Attributes' do
-    requaired_fields.each do |attribute|
+    fields.each do |attribute|
       it { should have_db_column(attribute) }
       it { should respond_to(attribute) }
     end
