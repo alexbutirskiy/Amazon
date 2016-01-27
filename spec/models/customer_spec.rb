@@ -25,6 +25,8 @@ RSpec.describe Customer, type: :model do
     %w(orders ratings).each do |association|
       it { should have_many(association) }
     end
+
+    it { should have_one(:site_account) }
   end
 
   context 'Callbacks' do
