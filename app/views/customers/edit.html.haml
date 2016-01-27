@@ -1,0 +1,29 @@
+.container.edit_customer
+  .row
+    .col-md-12
+      %h3= 'Settings'
+  .row
+    .col-md-12
+      %h4= 'Customer settings'.upcase
+      = form_for(@customer, url: user_customer_path, html: {class: 'form-inline'}) do |f|
+        .form-group
+          = f.text_field(:firstname, placeholder: 'Your firstname', class: 'form-control')
+          = f.text_field(:lastname, placeholder: 'Your lastname', class: 'form-control')
+          = f.submit( class: 'btn btn-default')
+  .row
+    <!--Billing address-->
+    .col-md-6
+      %h4= 'Billing address'.upcase
+      / = form_for(@user.customer.billing_address) do |f|
+        
+    <!--Shipping address-->
+    .col-md-6
+      %h4= 'Shipping address'.upcase
+  .row
+    <!--Email-->
+    .col-md-6
+    <!--Password-->
+    .col-md-6
+  .row
+    <!--Remove account-->
+    .col-md-12

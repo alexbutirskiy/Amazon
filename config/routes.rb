@@ -9,4 +9,11 @@ Rails.application.routes.draw do
   get '/books/bestsellers/:id', to: 'books#show_bestseller', as: :bestseller
 
   resources :authors, only: [:show]
+
+  # get '/users/:user_id/customer/edit', to: 'customer#edit', as: :edit_customer
+  # post '/users/:user_id/customer/update', to: 'customer#update', as: :update_customer
+  
+  resources :users do
+    resource :customer
+  end
 end

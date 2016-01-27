@@ -4,6 +4,22 @@ body {
   margin-left: auto;
 }
 
+.alert {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
 .bbb {
   border: 1px solid;
+}
+
+.field_with_errors {
+  display: inline-block;
+  input {
+    background-color: #FFE8E8
+  }
+}
+
+input {
+  // font-size: 0.9em !important;
 }
