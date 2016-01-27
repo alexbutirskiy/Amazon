@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  devise_for :users, only: :sessions
+  devise_for :users, only: [:sessions, :registrations]
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   root 'books#show_bestseller', defaults: {id: '1'}
