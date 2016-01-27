@@ -7,10 +7,9 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
-
   <%= render '/layouts/header' %>
+  <p class="devise_notice"><%= notice %></p>
+  <p class="devise_alert"><%= alert %></p>
   <%= yield %>
   <%= render '/layouts/footer' %>
 
