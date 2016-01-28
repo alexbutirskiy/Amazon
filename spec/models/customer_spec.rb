@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.describe Customer, type: :model do
   requaired_fields = %w(firstname lastname)
+  optional_fields = %w(billing_address shipping_address)
   REPEATED_EMAIL = 'somebody@somewhere.com'
 
   context 'Attributes' do
-    requaired_fields.each do |attribute|
-      it { should respond_to(attribute) }
+    (requaired_fields + optional_fields).each do |attribute|
       it { should respond_to(attribute) }
     end
   end
@@ -26,6 +26,8 @@ RSpec.describe Customer, type: :model do
       it { should have_many(association) }
     end
 
+    it { should belong_to(:billing_address) }
+    it { should belong_to(:shipping_address) }
     it { should have_one(:site_account) }
   end
 

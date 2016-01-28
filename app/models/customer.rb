@@ -1,4 +1,6 @@
 class Customer < ActiveRecord::Base
+  belongs_to :billing_address, class_name: 'Address'
+  belongs_to :shipping_address, class_name: 'Address'
   has_many :orders
   has_many :ratings, -> { where value: 4 }
   has_one :user_customer, dependent: :destroy
