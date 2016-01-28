@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   # post '/users/:user_id/customer/update', to: 'customer#update', as: :update_customer
   
   resources :users do
-    resource :customer
+    resource :customer, only: [:edit, :create]
   end
+
+  resources :customers, only: [:update]
 end

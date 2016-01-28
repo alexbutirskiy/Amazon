@@ -2,7 +2,12 @@ class CustomersController < ApplicationController
 
   def edit
     @user = User.find(params[:user_id])
-    @customer =  @user.customer || Customer.new
+    @customer =  @user.customer
+
+    unless @customer
+      @customer = Customer.new
+      render :new
+    end
   end
 
   def create
@@ -11,12 +16,15 @@ class CustomersController < ApplicationController
 
     display_flash(@customer, "Customer has been created")
 
-    render :edit
+    if @customer.new_record?
+      render :new
+    else
+      render :edit
+    end
   end
 
   def update
-    @user = User.find(params[:user_id])
-    @customer = @user.customer
+    @customer = Customer.find(params[:id])
     @customer.update(customer_params)
 
     display_flash(@customer, "Customer has been updated")
