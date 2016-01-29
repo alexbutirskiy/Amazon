@@ -36,51 +36,40 @@ class CustomersController < ApplicationController
     render :edit
   end
 
-  def create_billing_address
+  def create_address
     @customer = Customer.find(params[:customer_id])
-    @billing_address = @customer.create_billing_address(address_params)
-    display_flash(@billing_address, 'Billing address has been created')
-    @customer.save if @customer.billing_address_id_changed?
-
-    @shipping_address = @customer.shipping_address || Address.new
+    case params[:address][:address_type]
+    when 'billing_address'
+      @billing_address = @customer.create_billing_address(address_params)
+      display_flash(@billing_address, 'Billing address has been created')
+      @customer.save if @customer.billing_address_id_changed?
+      @shipping_address = @customer.shipping_address || Address.new
+    when 'shipping_address'
+      @shipping_address = @customer.create_shipping_address(address_params)
+      display_flash(@shipping_address, 'Shipping address has been created')
+      @customer.save if @customer.shipping_address_id_changed?
+      @billing_address = @customer.billing_address || Address.new
+    end
 
     render :edit
   end
 
-  def update_billing_address
-#    byebug
+  def update_address
     @customer = Customer.find(params[:customer_id])
-    @billing_address = @customer.billing_address
-    @billing_address.update(address_params)
-
-    display_flash(@billing_address, 'Billing address has been updated')
-    @customer.save if @customer.billing_address_id_changed?
-
-    @shipping_address = @customer.shipping_address || Address.new
-
-    render :edit
-  end
-
-    def create_shipping_address
-    @customer = Customer.find(params[:customer_id])
-    @shipping_address = @customer.create_shipping_address(address_params)
-    display_flash(@shipping_address, 'Shipping address has been created')
-    @customer.save if @customer.shipping_address_id_changed?
-
-    @billing_address = @customer.billing_address || Address.new
-
-    render :edit
-  end
-
-  def update_shipping_address
-    @customer = Customer.find(params[:customer_id])
-    @shipping_address = @customer.shipping_address
-    @shipping_address.update(address_params)
-
-    display_flash(@shipping_address, 'Shipping address has been updated')
-    @customer.save if @customer.shipping_address_id_changed?
-
-    @billing_address = @customer.billing_address || Address.new
+    case params[:address][:address_type]
+    when 'billing_address'
+      @billing_address = @customer.billing_address
+      @billing_address.update(address_params)
+      display_flash(@billing_address, 'Billing address has been updated')
+      @customer.save if @customer.billing_address_id_changed?
+      @shipping_address = @customer.shipping_address || Address.new
+    when 'shipping_address'
+      @shipping_address = @customer.shipping_address
+      @shipping_address.update(address_params)
+      display_flash(@shipping_address, 'Shipping address has been updated')
+      @customer.save if @customer.shipping_address_id_changed?
+      @billing_address = @customer.billing_address || Address.new
+    end
 
     render :edit
   end
