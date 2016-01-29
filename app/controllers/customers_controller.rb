@@ -9,8 +9,7 @@ class CustomersController < ApplicationController
       render :new
     end
 
-    @billing_address = @customer.billing_address || Address.new
-    @shipping_address = @customer.shipping_address || Address.new
+    set_addresses
   end
 
   def create
@@ -19,8 +18,7 @@ class CustomersController < ApplicationController
 
     display_flash(@customer, "Customer has been created")
 
-    @billing_address = Address.new
-    @shipping_address = Address.new
+    set_addresses
     @customer.new_record? ? render(:new) : render(:edit)
   end
 
@@ -30,9 +28,7 @@ class CustomersController < ApplicationController
 
     display_flash(@customer, "Customer has been updated")
 
-    @billing_address = @customer.billing_address || Address.new
-    @shipping_address = @customer.shipping_address || Address.new
-
+    set_addresses
     render :edit
   end
 
@@ -54,6 +50,21 @@ class CustomersController < ApplicationController
   def update_shipping_address
     update_address(:shipping_address)
     render :edit
+  end
+
+  def update_email
+    @user = User.find(params[:user_id])
+    @user.email = params[:user][:email]
+    @user.save
+    display_flash(@user, 'Email updated')
+
+    @customer =  @user.customer
+
+    unless @customer
+      @customer = Customer.new
+      render :new
+    end
+
   end
 
   private

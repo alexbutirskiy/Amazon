@@ -1,0 +1,4 @@
+= form_for user, url: user_email_path do |f|
+  .form-group
+    = f.text_field(:email, placeholder: 'Your email', class: 'form-control')
+  = f.submit(value: 'SAVE', class: 'btn btn-default')

@@ -10,8 +10,9 @@ Rails.application.routes.draw do
 
   resources :authors, only: [:show]
 
-  resources :users do
+  resources :users, only: [] do
     resource :customer, only: [:edit, :create]
+    patch 'email',       to: 'customers#update_email'
   end
 
   resources :customers, only: [:update] do

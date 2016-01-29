@@ -19,9 +19,9 @@
       %h4= 'Shipping address'.upcase
       = render 'address_form', address_type: 'shipping_address'
   .row
-    <!--Email-->
     .col-md-6
-    <!--Password-->
+      %h4= 'Email'.upcase
+      = render 'email_form', user: @user
     .col-md-6
   .row
     <!--Remove account-->
