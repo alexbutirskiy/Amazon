@@ -1,0 +1,19 @@
+-address = instance_variable_get "@#{address_type}"
+= form_for(address, url: send("customer_#{address_type}_path", @customer), html: { id: "#{address_type}" }) do |f|
+  = hidden_field(:address_type, address_type)
+  .form-group
+    = f.text_field(:firstname, placeholder: 'First name', class: 'form-control')
+  .form-group
+    = f.text_field(:lastname, placeholder: 'Last name', class: 'form-control')
+  .form-group
+    = f.text_field(:address, placeholder: 'Street address', class: 'form-control')
+  .form-group
+    = f.text_field(:city, placeholder: 'City', class: 'form-control')
+  .form-group
+    = f.text_field(:country, placeholder: 'Country', class: 'form-control')
+  .form-group
+    = f.text_field(:zipcode, placeholder: 'Zip', class: 'form-control')
+  .form-group
+    = f.text_field(:phone, placeholder: 'Phone', class: 'form-control')
+  .form-group
+    = f.submit( value: 'Save', class: 'btn btn-default')

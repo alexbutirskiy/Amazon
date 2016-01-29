@@ -17,5 +17,13 @@ Rails.application.routes.draw do
     resource :customer, only: [:edit, :create]
   end
 
-  resources :customers, only: [:update]
+  resources :customers, only: [:update] do
+    # resource :shipping_address, only: [:create, :update]
+    post 'billing_address', to: 'customers#create_billing_address'
+    patch 'billing_address', to: 'customers#update_billing_address'
+    put 'billing_address', to: 'customers#update_billing_address'
+    post 'shipping_address', to: 'customers#create_shipping_address'
+    patch 'shipping_address', to: 'customers#update_shipping_address'
+    put 'shipping_address', to: 'customers#update_shipping_address'
+  end
 end
