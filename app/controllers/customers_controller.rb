@@ -37,51 +37,22 @@ class CustomersController < ApplicationController
   end
 
   def create_billing_address
-    @customer = Customer.find(params[:customer_id])
-    @billing_address = @customer.create_billing_address(address_params)
-    display_flash(@billing_address, 'Billing address has been created')
-    @customer.save if @customer.billing_address_id_changed?
-
-    @shipping_address = @customer.shipping_address || Address.new
-
+    create_address(:billing_address)
     render :edit
   end
 
   def update_billing_address
-#    byebug
-    @customer = Customer.find(params[:customer_id])
-    @billing_address = @customer.billing_address
-    @billing_address.update(address_params)
-
-    display_flash(@billing_address, 'Billing address has been updated')
-    @customer.save if @customer.billing_address_id_changed?
-
-    @shipping_address = @customer.shipping_address || Address.new
-
+    update_address(:billing_address)
     render :edit
   end
 
-    def create_shipping_address
-    @customer = Customer.find(params[:customer_id])
-    @shipping_address = @customer.create_shipping_address(address_params)
-    display_flash(@shipping_address, 'Shipping address has been created')
-    @customer.save if @customer.shipping_address_id_changed?
-
-    @billing_address = @customer.billing_address || Address.new
-
+  def create_shipping_address
+    create_address(:shipping_address)
     render :edit
   end
 
   def update_shipping_address
-    @customer = Customer.find(params[:customer_id])
-    @shipping_address = @customer.shipping_address
-    @shipping_address.update(address_params)
-
-    display_flash(@shipping_address, 'Shipping address has been updated')
-    @customer.save if @customer.shipping_address_id_changed?
-
-    @billing_address = @customer.billing_address || Address.new
-
+    update_address(:shipping_address)
     render :edit
   end
 
@@ -102,5 +73,39 @@ class CustomersController < ApplicationController
     else
       flash.now[:alert] = object.errors.full_messages.join(', ')
     end
+  end
+
+  def humanize(s)
+    "#{s.to_s.gsub('_', ' '). capitalize}"
+  end
+
+  def set_addresses
+    @billing_address ||= @customer.billing_address || Address.new
+    @shipping_address ||= @customer.shipping_address || Address.new
+  end
+
+  def create_address(address_type)
+    @customer = Customer.find(params[:customer_id])
+
+    address = @customer.send("create_#{address_type}", address_params)
+    instance_variable_set("@#{address_type}", address)
+
+    display_flash(address, "#{humanize(address_type)} has been created")
+    @customer.save if @customer.send("#{address_type}_id_changed?")
+
+    set_addresses
+  end
+
+  def update_address(address_type)
+    @customer = Customer.find(params[:customer_id])
+
+    address = @customer.send("#{address_type}")
+    address.update(address_params)
+    instance_variable_set("@#{address_type}", address)
+
+    display_flash(address, "#{humanize(address_type)} has been updated")
+    @customer.save if @customer.send("#{address_type}_id_changed?")
+
+    set_addresses
   end
 end

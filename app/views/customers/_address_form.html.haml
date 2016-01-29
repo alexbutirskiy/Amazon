@@ -1,6 +1,5 @@
 -address = instance_variable_get "@#{address_type}"
 = form_for(address, url: send("customer_#{address_type}_path", @customer), html: { id: "#{address_type}" }) do |f|
-  = hidden_field(:address_type, address_type)
   .form-group
     = f.text_field(:firstname, placeholder: 'First name', class: 'form-control')
   .form-group
