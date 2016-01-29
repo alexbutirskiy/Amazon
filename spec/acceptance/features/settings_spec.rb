@@ -100,7 +100,21 @@ feature 'Settings' do
       expect(page).to have_content('SHIPPING ADDRESS')
     end
 
-    test_address_form('billing_address')
-    test_address_form('shipping_address')
+    context 'When there are still no addresses registered' do
+      test_address_form('billing_address',  'created')
+      test_address_form('shipping_address', 'created')
+    end
+
+    context 'When addresses are registered' do
+      before(:each) do
+         @user.customer.billing_address  = create(:address)
+         @user.customer.shipping_address = create(:address)
+         @user.customer.save
+         click_link('Settings')
+      end
+
+      test_address_form('billing_address',  'updated')
+      test_address_form('shipping_address', 'updated')
+    end
   end
 end

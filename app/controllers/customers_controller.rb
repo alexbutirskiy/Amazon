@@ -48,7 +48,7 @@ class CustomersController < ApplicationController
   end
 
   def update_billing_address
-    byebug
+#    byebug
     @customer = Customer.find(params[:customer_id])
     @billing_address = @customer.billing_address
     @billing_address.update(address_params)
@@ -77,7 +77,7 @@ class CustomersController < ApplicationController
     @shipping_address = @customer.shipping_address
     @shipping_address.update(address_params)
 
-    display_flash(@shipping_address, 'Biiling address has been updated')
+    display_flash(@shipping_address, 'Shipping address has been updated')
     @customer.save if @customer.shipping_address_id_changed?
 
     @billing_address = @customer.billing_address || Address.new

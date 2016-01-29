@@ -1,4 +1,4 @@
-def test_address_form(address_type)
+def test_address_form(address_type, status)
   address_name = "#{address_type.gsub('_', ' ').capitalize}"
   address_id = "##{address_type}"
     scenario "User registers #{address_name}" do
@@ -13,7 +13,7 @@ def test_address_form(address_type)
         click_button 'Save'
       end
 
-      expect(find('.alert-success').text).to eq "#{address_name} has been created"
+      expect(find('.alert-success').text).to eq "#{address_name} has been #{status}"
       within(address_id) do
         expect(find_field('First name').value).to     eq @customer.firstname
         expect(find_field('Last name').value).to      eq @customer.lastname
@@ -27,6 +27,13 @@ def test_address_form(address_type)
 
     scenario "User tries to register #{address_name} with all fields are empty" do
       within(address_id) do
+        fill_in 'First name',     with: ''
+        fill_in 'Last name',      with: ''
+        fill_in 'Street address', with: ''
+        fill_in 'City',           with: ''
+        fill_in 'Country',        with: ''
+        fill_in 'Zip',            with: ''
+        fill_in 'Phone',          with: ''
         click_button 'Save'
       end
       expect(find('.alert-danger').text).to match 'Address'
@@ -44,7 +51,7 @@ def test_address_form(address_type)
         fill_in 'City',           with: @address.city
         fill_in 'Country',        with: @address.country
         fill_in 'Zip',            with: @address.zipcode
-
+        fill_in 'Phone',          with: ''
         click_button 'Save'
       end
 
