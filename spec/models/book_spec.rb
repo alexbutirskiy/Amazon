@@ -28,6 +28,7 @@ RSpec.describe Book, type: :model, focus: false do
   context 'Associations' do
     it { should belong_to(:category) }
     it { should have_many(:authors) }
+    it { should have_many(:reviews) }
   end
 
   context 'Callbacks' do

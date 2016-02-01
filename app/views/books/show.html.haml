@@ -16,7 +16,30 @@
 
 .container.review
   .row
-    .col-md-2
-      Reviews
-    .col-md-10
-      = link_to 'Add review for this book'
+    .col-md-12
+      %h3
+        Reviews
+        = link_to 'Add review for this book', new_book_review_path(@book), class: 'add_review'
+  - @book.reviews.each do |review|
+    .row
+      %br
+      .col-md-12
+        %p
+          - star_all = 5
+          - star_full = (review.value * star_all)/Review::MAX_RATING
+          - star_half = ((review.value * star_all)%Review::MAX_RATING != 0) ? 1:0
+          - star_empty = star_all - star_full - star_half
+          - star_full.times do
+            %i.fa.fa-star
+          - star_half.times do
+            %i.fa.fa-star-half-o
+          - star_empty.times do
+            %i.fa.fa-star-o            
+          %span.title= review.title
+          %span.date= review.updated_at.strftime("%B %d, %Y")
+        %p
+          by
+          = link_to "#{review.customer.name}", '#'
+    .row
+      .col-md-12
+        %p= review.text

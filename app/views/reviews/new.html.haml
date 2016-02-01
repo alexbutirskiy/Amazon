@@ -1,0 +1,21 @@
+.container.reviews
+  .row
+    .col-md-12
+      %h3
+        New Review for
+        = link_to "#{@book.title}", book_path(@book)
+  .row
+    .col-md-8
+      = form_for([ @book, @review ]) do |f|
+        %p
+          Raiting
+          = select('review', 'value', (1..Review::MAX_RATING), selected: Review::MAX_RATING/2)
+        .form-group
+          = f.label(:title)
+          = f.text_field(:title, class: 'form-control')
+        .form-group
+          = f.label(:text)
+          = f.text_area(:text, class: 'form-control')
+        = f.submit(value: 'ADD')
+        or
+        = link_to('Cancel', book_path(@book))

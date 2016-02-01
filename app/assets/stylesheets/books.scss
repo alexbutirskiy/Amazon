@@ -49,4 +49,20 @@
 
 .review {
   margin-top: 2em;
+  .add_review {
+    font-size: 0.8em;
+    padding-left: 1em;
+  }
+  .date {
+    font-size: 0.9em;
+    color: #777;
+    padding-left: 3em;
+  }
+  .title {
+    font-weight: bolder;
+    padding-left: 1em; 
+  }
+  .fa {
+    margin-bottom: 0;
+  }
 }

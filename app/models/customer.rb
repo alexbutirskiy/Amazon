@@ -12,4 +12,8 @@ class Customer < ActiveRecord::Base
   def order_in_progress
     orders.where(state: 'in_progress').first
   end
+
+  def name
+    firstname + ' ' + lastname
+  end
 end

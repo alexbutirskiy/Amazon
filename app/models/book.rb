@@ -4,6 +4,7 @@ class Book < ActiveRecord::Base
 
   has_many :book_authors
   has_many :authors, through: :book_authors
+  has_many :reviews
   belongs_to :category
 
   after_initialize :set_defaults, if: :new_record?
