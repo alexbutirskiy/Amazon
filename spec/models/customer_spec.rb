@@ -22,7 +22,7 @@ RSpec.describe Customer, type: :model do
   end
 
   context 'Associations' do
-    %w(orders ratings).each do |association|
+    %w(orders reviews).each do |association|
       it { should have_many(association) }
     end
 

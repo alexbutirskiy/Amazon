@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :rating do
+  factory :reqview do
     text { Faker::Lorem.paragraph }
     value { Faker::Number.number(1).to_i + 1 }
     book

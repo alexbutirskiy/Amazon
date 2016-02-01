@@ -109,8 +109,9 @@ RailsAdmin.config do |config|
     end
   end
 
-  config.model Rating do
+  config.model Review do
     list do
+      field :title
       field :text
       field :value
       field :book

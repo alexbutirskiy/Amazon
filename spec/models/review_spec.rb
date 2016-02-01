@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Rating, type: :model, focus: false do
+RSpec.describe Review, type: :model, focus: false do
   context 'Attributes' do
-    %w(text value).each do |attribute|
+    %w(title text value).each do |attribute|
       it { should have_db_column(attribute) }
       it { should respond_to(attribute) }
     end
