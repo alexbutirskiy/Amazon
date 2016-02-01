@@ -20,9 +20,11 @@
       = render 'address_form', address_type: 'shipping_address'
   .row
     .col-md-6
-      %h4= 'Email'.upcase
+      %h4= 'EMAIL'.upcase
       = render 'email_form', user: @user
     .col-md-6
+      %h4= 'PASSWORD'.upcase
+      = render 'password_form', user: @user
   .row
     <!--Remove account-->
     .col-md-12

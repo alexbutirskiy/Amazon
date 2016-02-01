@@ -1,6 +1,6 @@
 require 'rails_helper'
 require 'acceptance/features/features_spec_helper'
-require 'acceptance/features/settings_address_helper'
+require 'support/features_settings_helpers'
 include Warden::Test::Helpers
 #Capybara.default_driver = :selenium
 Warden.test_mode!
@@ -10,10 +10,10 @@ feature 'Settings' do
     Warden.test_reset!
   end
 
-  context 'When User is still not registered as Customer' do
+  context 'When Customer is still not registered as Customer' do
     before(:each) do
-      user = FactoryGirl.create(:user)
-      login_as(user, :scope => :user, :run_callbacks => false)
+      @user = FactoryGirl.create(:user)
+      login_as(@user, :scope => :user, :run_callbacks => false)
       visit '/'
     end
 
@@ -36,7 +36,7 @@ feature 'Settings' do
         expect(page).to_not have_content('SHIPPING ADDRESS')
       end
 
-      scenario "User registers his name" do
+      scenario "Customer registers his name" do
         within('#new_customer') do
           fill_in 'Your firstname', with: @customer.firstname
           fill_in 'Your lastname',  with: @customer.lastname
@@ -47,7 +47,7 @@ feature 'Settings' do
         expect(find_field('Your lastname').value).to  eq @customer.lastname
       end
 
-      scenario "User tries to register his name without lastname" do
+      scenario "Customer tries to register his name without lastname" do
         within('#new_customer') do
           fill_in 'Your firstname', with: @customer.firstname
           click_button ('Create Customer')
@@ -57,7 +57,7 @@ feature 'Settings' do
         expect(find_field('Your lastname').value).to  eq ''
       end
 
-      scenario "User tries to register his name without firstname" do
+      scenario "Customer tries to register his name without firstname" do
         within('#new_customer') do
           fill_in 'Your lastname', with: @customer.lastname
           click_button ('Create Customer')
@@ -66,10 +66,13 @@ feature 'Settings' do
         expect(find_field('Your firstname').value).to eq ''
         expect(find_field('Your lastname').value).to  eq @customer.lastname
       end
+
+      test_email_update
+      test_password_update
     end
   end
 
-  context 'When User is already registered as Customer' do
+  context 'When Customer is already registered as Customer' do
     before(:each) do
       @user = create(:user)
       @user.customer = create(:customer)
@@ -81,21 +84,21 @@ feature 'Settings' do
       click_link('Settings')
     end
 
-    scenario 'User goes on settings page' do
+    scenario 'Customer goes on settings page' do
       expect(page).to have_content('Settings')
       expect(page).to have_content('CUSTOMER SETTINGS')
     end
 
-    scenario "User sees 'Update Customer' form" do
+    scenario "Customer sees 'Update Customer' form" do
       expect(page).to have_button('Update Customer')
     end
 
-    scenario "User sees firstname and lastname in the 'Update Customer' form" do
+    scenario "Customer sees firstname and lastname in the 'Update Customer' form" do
       expect(find_field('Your firstname').value).to eq @user.customer.firstname
       expect(find_field('Your lastname').value).to  eq @user.customer.lastname
     end
 
-    scenario "User sees adress forms" do
+    scenario "Customer sees adress forms" do
       expect(page).to have_content('BILLING ADDRESS')
       expect(page).to have_content('SHIPPING ADDRESS')
     end
@@ -116,5 +119,8 @@ feature 'Settings' do
       test_address_form('billing_address',  'updated')
       test_address_form('shipping_address', 'updated')
     end
+
+    test_email_update
+    test_password_update
   end
 end

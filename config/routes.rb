@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :users, only: [] do
     resource :customer, only: [:edit, :create]
     patch 'email',       to: 'customers#update_email'
+    patch 'password',    to: 'customers#update_password'
   end
 
   resources :customers, only: [:update] do

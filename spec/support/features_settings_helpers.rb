@@ -67,3 +67,27 @@ def test_address_form(address_type, status)
       end
     end
 end
+
+def test_email_update
+  scenario 'Customer changes its own email with valid email' do
+    new_email = Faker::Internet.email
+    within('#email_update') do
+      fill_in 'Your email', with: new_email
+      click_button 'SAVE'
+    end
+    expect(find('.alert-success').text).to eq 'Email updated'
+    expect(find_field('Your email').value).to eq new_email
+  end
+end
+
+def test_password_update
+  scenario 'Customer changes its own password' do
+    new_password = Faker::Internet.password
+    within('#password_update') do
+      fill_in 'type old password', with: @user.password
+      fill_in 'type new password', with: new_password
+      click_button 'SAVE'
+    end
+    expect(find('.alert-success').text).to eq 'Password updated'
+  end
+end

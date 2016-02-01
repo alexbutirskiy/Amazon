@@ -28,6 +28,7 @@ class CustomersController < ApplicationController
 
     display_flash(@customer, "Customer has been updated")
 
+    @user = @customer.site_account
     set_addresses
     render :edit
   end
@@ -63,8 +64,26 @@ class CustomersController < ApplicationController
     unless @customer
       @customer = Customer.new
       render :new
+    else
+      set_addresses
+      render :edit
     end
+  end
 
+  def update_password
+    @user = User.find(params[:user_id])
+    @user.update_with_password(user_params)
+    display_flash(@user, 'Password updated')
+
+    @customer =  @user.customer
+
+    unless @customer
+      @customer = Customer.new
+      render :new
+    else
+      set_addresses
+      render :edit
+    end
   end
 
   private
@@ -76,6 +95,10 @@ class CustomersController < ApplicationController
   def address_params
     params.require(:address).
       permit(:firstname, :lastname, :address, :zipcode, :city, :phone, :country)
+  end
+
+  def user_params
+    params.require(:user).permit(:email, :password, :current_password)
   end
 
   def display_flash(object, on_success = 'Ok')
@@ -104,6 +127,7 @@ class CustomersController < ApplicationController
     display_flash(address, "#{humanize(address_type)} has been created")
     @customer.save if @customer.send("#{address_type}_id_changed?")
 
+    @user = @customer.site_account
     set_addresses
   end
 
@@ -117,6 +141,7 @@ class CustomersController < ApplicationController
     display_flash(address, "#{humanize(address_type)} has been updated")
     @customer.save if @customer.send("#{address_type}_id_changed?")
 
+    @user = @customer.site_account
     set_addresses
   end
 end
