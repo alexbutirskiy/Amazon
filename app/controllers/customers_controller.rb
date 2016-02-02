@@ -1,4 +1,5 @@
 class CustomersController < ApplicationController
+  before_action :authenticate_user!
 
   def edit
     @user = User.find(params[:user_id])
@@ -99,14 +100,6 @@ class CustomersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :password, :current_password)
-  end
-
-  def display_flash(object, on_success = 'Ok')
-    if object.errors.empty?
-      flash.now[:notice] = on_success
-    else
-      flash.now[:alert] = object.errors.full_messages.join(', ')
-    end
   end
 
   def humanize(s)

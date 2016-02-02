@@ -75,8 +75,7 @@ feature 'Settings' do
   context 'When Customer is already registered as Customer' do
     before(:each) do
       @user = create(:user)
-      @user.customer = create(:customer)
-      @user.save
+      @user.update_attribute(:customer, create(:customer))
       login_as(@user, :scope => :user)
       @customer = build(:customer)
       @address = build(:address)

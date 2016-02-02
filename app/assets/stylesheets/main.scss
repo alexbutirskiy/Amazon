@@ -16,3 +16,9 @@ body {
 input {
   // font-size: 0.9em !important;
 }
+
+.field_with_errors {
+  input {
+    background-color: #FFE8E8
+  }
+}
