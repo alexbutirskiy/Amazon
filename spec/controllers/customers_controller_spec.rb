@@ -130,6 +130,42 @@ RSpec.describe CustomersController, type: :controller do
     end
   end
 
+  describe 'PATCH #update' do
+    it { should permit(:firstname, :lastname).
+          for(:update, params: { id: customer.id, customer: customer_params }).
+          on(:customer) }
+
+    it 'assigns @user' do
+      patch(:update, id: customer.id, customer: customer_params)
+      expect(assigns(:user)).to eq user
+    end
+
+    it 'assigns @customer' do
+      patch(:update, id: customer.id, customer: customer_params)
+      expect(assigns(:customer)).to eq customer
+    end
+
+    it 'sets billing and shipping addresses' do
+      expect(controller).to receive(:set_addresses)
+      patch(:update, id: customer.id, customer: customer_params)
+    end
+
+    context 'when parametres are valid' do
+      it "flashes 'Customer has been updated' notice" do
+        patch(:update, id: customer.id, customer: customer_params)
+        expect(flash[:notice]).to eq "Customer has been updated"
+      end
+    end
+
+    context 'when parametres are invalid' do
+      it "flashes 'can't be blank' alert" do
+        customer_params[:firstname] = ''
+        patch(:update, id: customer.id, customer: customer_params)
+        expect(flash[:alert]).to match("can't be blank")
+      end
+    end
+  end
+
   describe 'POST #create_billing_address' do
     it { should permit(:firstname, :lastname, :address, :zipcode, :city, :phone, :country).
         for(:create_billing_address, 
@@ -212,17 +248,6 @@ RSpec.describe CustomersController, type: :controller do
     end
   end
 
-
-
-
-
-
-
-
-
-
-
-
   describe 'POST #create_shipping_address' do
     it { should permit(:firstname, :lastname, :address, :zipcode, :city, :phone, :country).
         for(:create_shipping_address, 
@@ -253,7 +278,7 @@ RSpec.describe CustomersController, type: :controller do
     end
 
     context 'when parametres are invalid' do
-      it "flashes 'shipping address has been updated' notice" do
+      it "flashes 'can't be blank' alert" do
         address_params[:city] = ''
         post(:create_shipping_address, customer_id: customer.id, address: address_params)
         expect(flash[:alert]).to match("can't be blank")
@@ -297,14 +322,11 @@ RSpec.describe CustomersController, type: :controller do
     end
 
     context 'when parametres are invalid' do
-      it "flashes 'shipping address has been updated' notice" do
+      it "flashes 'can't be blank' alert" do
         address.errors.add(:city, "can't be blank")
         patch(:update_shipping_address, customer_id: customer.id, address: address_params)
         expect(flash[:alert]).to match("can't be blank")
       end
     end
   end
-
-
-
 end

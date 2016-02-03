@@ -1,7 +1,5 @@
 languages:
   Ruby: true
-  JavaScript: true
-  PHP: true
-  Python: true
+  JavaScript: false
 exclude_paths:
-- "config/initializers/rails_admin.rb"
+- "config/initializers/"
