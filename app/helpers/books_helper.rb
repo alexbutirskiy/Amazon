@@ -32,4 +32,26 @@ module BooksHelper
   def display_books
     
   end
+
+  def display_stars(value)
+    star_all = 5
+    star_full = (value * star_all)/Review::MAX_RATING
+    star_half = ((value * star_all)%Review::MAX_RATING != 0) ? 1:0
+    star_empty = star_all - star_full - star_half
+    out = ""
+
+    star_full.times do
+      out += content_tag('i', '', class: ['fa', 'fa-star'])
+    end
+
+    star_half.times do
+      out += content_tag('i', '', class: ['fa', 'fa-star-half-o'])
+    end
+
+    star_empty.times do
+      out += content_tag('i', '', class: ['fa', 'fa-star-o'])
+    end
+
+    out.html_safe
+  end
 end

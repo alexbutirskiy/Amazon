@@ -1,35 +1,31 @@
 class CustomersController < ApplicationController
   before_action :authenticate_user!
-
+  before_action :find_user, only: [:edit, :create, :update_email, :update_password]
+  before_action :find_customer_user, only: [  :update,
+                                              :create_billing_address,
+                                              :update_billing_address,
+                                              :create_shipping_address,
+                                              :update_shipping_address ]
   def edit
-    @user = User.find(params[:user_id])
     @customer =  @user.customer
 
     unless @customer
       @customer = Customer.new
       render :new
     end
-
     set_addresses
   end
 
   def create
-    @user = User.find(params[:user_id])
     @customer = @user.build_user_customer.create_customer(customer_params)
-
     display_flash(@customer, "Customer has been created")
-
     set_addresses
     @customer.new_record? ? render(:new) : render(:edit)
   end
 
   def update
-    @customer = Customer.find(params[:id])
     @customer.update(customer_params)
-
     display_flash(@customer, "Customer has been updated")
-
-    @user = @customer.site_account
     set_addresses
     render :edit
   end
@@ -55,7 +51,6 @@ class CustomersController < ApplicationController
   end
 
   def update_email
-    @user = User.find(params[:user_id])
     @user.email = params[:user][:email]
     @user.save
     display_flash(@user, 'Email updated')
@@ -72,7 +67,6 @@ class CustomersController < ApplicationController
   end
 
   def update_password
-    @user = User.find(params[:user_id])
     @user.update_with_password(user_params)
     display_flash(@user, 'Password updated')
 
@@ -88,6 +82,15 @@ class CustomersController < ApplicationController
   end
 
   private
+
+  def find_user
+    @user = User.find(params[:user_id])
+  end
+
+  def find_customer_user
+    @customer = Customer.find(params[:customer_id] || params[:id])
+    @user = @customer.site_account
+  end
 
   def customer_params
     params.require(:customer).permit(:firstname, :lastname)
@@ -112,21 +115,16 @@ class CustomersController < ApplicationController
   end
 
   def create_address(address_type)
-    @customer = Customer.find(params[:customer_id])
-
     address = @customer.send("create_#{address_type}", address_params)
     instance_variable_set("@#{address_type}", address)
 
     display_flash(address, "#{humanize(address_type)} has been created")
     @customer.save if @customer.send("#{address_type}_id_changed?")
 
-    @user = @customer.site_account
     set_addresses
   end
 
   def update_address(address_type)
-    @customer = Customer.find(params[:customer_id])
-
     address = @customer.send("#{address_type}")
     address.update(address_params)
     instance_variable_set("@#{address_type}", address)
@@ -134,7 +132,7 @@ class CustomersController < ApplicationController
     display_flash(address, "#{humanize(address_type)} has been updated")
     @customer.save if @customer.send("#{address_type}_id_changed?")
 
-    @user = @customer.site_account
+
     set_addresses
   end
 end
