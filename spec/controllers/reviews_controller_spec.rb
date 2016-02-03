@@ -54,6 +54,10 @@ RSpec.describe ReviewsController, type: :controller do
       allow(Review).to receive(:new).and_return(@review)
     end
 
+    it { should permit(:title, :text, :value).
+          for(:create, params: { book_id: book.id, review: review_params }).
+          on(:review) }
+
     it "receives 'find' with 'book_id' argument" do
       expect(Book).to receive(:find).with(book.id.to_s).and_return(book)
       patch(:create, book_id: book.id, review: review_params)
