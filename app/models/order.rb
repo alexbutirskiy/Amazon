@@ -1,4 +1,5 @@
 class Order < ActiveRecord::Base
+  include AASM
   class States
     IN_PROGRESS = 'in_progress'
     COMPLETED = 'completed'
@@ -17,9 +18,9 @@ class Order < ActiveRecord::Base
 
   validates :total_price, presence: true
   validates :completed_date, presence: true
-  validates :state, 
-    inclusion: { in: States.all, 
-      message: "is wrong, only #{States.all} states are allowed" }
+#  validates :state, 
+#    inclusion: { in: States.all, 
+#      message: "is wrong, only #{States.all} states are allowed" }
 
   before_validation :set_state
   before_save :update_total_price
@@ -29,6 +30,20 @@ class Order < ActiveRecord::Base
     price = book.price * quantity
     order_items.create(book: book, quantity: quantity, price: price)
     update_total_price
+  end
+
+  aasm column: :state do
+    state :cart, initial: true
+    state :wait_addresses
+    state :wait_delivery_methd
+    state :wait_payment
+    state :wait_confirm
+    state :wait_deliverence_confirmation
+    state :completed
+
+    event :checkout do
+      transitions from: :cart, to: :wait_address
+    end
   end
 
   private
