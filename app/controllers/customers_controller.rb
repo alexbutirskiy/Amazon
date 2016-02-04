@@ -20,7 +20,11 @@ class CustomersController < ApplicationController
     @customer = @user.build_user_customer.create_customer(customer_params)
     display_flash(@customer, "Customer has been created")
     set_addresses
-    @customer.new_record? ? render(:new) : render(:edit)
+    if @customer.new_record? 
+      render(:new)
+    else
+      session[:return_to] ? redirect_to(session.delete(:return_to)) : render(:edit)
+    end
   end
 
   def update

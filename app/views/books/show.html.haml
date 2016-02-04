@@ -10,7 +10,12 @@
         .col-md-6.price
           = "$#{@book.price}"
         .col-md-6
-          Add to cart form
+          .row
+            = form_tag(cart_order_items_path, class: 'form-inline pull-right') do
+              .form-group
+                = hidden_field_tag('book_id', @book.id)
+                = text_field_tag('quantity', 1, class: 'form-control quantity_field')
+                = submit_tag('ADD TO CART', class: 'btn btn-default')
       .row
         %p= @book.full_description
 

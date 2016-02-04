@@ -24,4 +24,8 @@ Rails.application.routes.draw do
     post  'shipping_address', to: 'customers#create_shipping_address'
     patch 'shipping_address', to: 'customers#update_shipping_address'
   end
+
+  resource :cart, only: [:show, :update] do
+    resources :order_items, only: [:create, :destroy]
+  end
 end

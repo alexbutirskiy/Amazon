@@ -1,0 +1,34 @@
+.container.cart
+  .row
+    .col-sm-1
+    .col-sm-7.text-center
+      BOOK
+    .col-sm-1.text-center
+      PRICE
+    .col-sm-1.text-center
+      QTY
+    .col-sm-2.pull-left
+      TOTAL
+  = form_tag(cart_path, method: :patch) do
+    - @items.each do |item|
+      .row.vertical-align
+        - book = item.book
+        .col-sm-1
+          = link_to image_tag('default_cover.jpg', size: '50x60'), book_path(book)
+        .col-sm-7
+          .row
+            %h3= book.title
+          .row
+            %p= book.description
+        .col-sm-1.text-center.price
+          = "$#{book.price}"
+        .col-sm-1
+          = text_field_tag("quantity[#{item.id}]", item.quantity, class: 'quantity_field text-center')
+        .col-sm-2.text-center
+          .price.pull-left
+            = "$#{item.total_price}"
+          .pull-right
+            = link_to('X', cart_order_item_path(item), method: :delete, class: 'btn btn-delete')
+      %br
+    = submit_tag('UPDATE CART', class: 'btn btn-default')
+

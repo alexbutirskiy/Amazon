@@ -4,4 +4,8 @@ class OrderItem < ActiveRecord::Base
 
   validates :price, presence: true
   validates :quantity, presence: true
+
+  def total_price
+    price * quantity
+  end
 end

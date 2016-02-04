@@ -6,6 +6,7 @@ class ReviewsController < ApplicationController
       @book = Book.find(params[:book_id])
       @review = Review.new
     else
+      session[:return_to] = new_book_review_path(params[:book_id])
       redirect_to(edit_user_customer_path(current_user), 
         alert: 'Register your name first')
     end

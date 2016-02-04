@@ -1,0 +1,21 @@
+.cart {
+  .quantity_field {
+    font-size: 0.9em;
+    width: 2.8em !important;
+  }
+
+  .price {
+    font-size: 1em;
+    font-weight: bold;
+  }
+
+  .btn-delete {
+    color: black;
+    padding: 0px 5px;
+    border-radius: 10px;
+    &:hover {
+      color: red;
+      background-color: #FFF0F0
+    }
+  }
+}

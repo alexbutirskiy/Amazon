@@ -1,18 +1,18 @@
 #header
   .container
     .row
-      .col-md-4.shop_name
+      .col-sm-4.shop_name
         = link_to("The Bookstore", root_path)
 
-      .col-md-3.shop_links
+      .col-sm-3.shop_links
         %ul.with_delimiter
           %li= link_to "HOME", root_path
           %li= link_to "SHOP", books_path
 
-      .col-md-2.cart
-        = link_to "CART"
+      .col-sm-2.cart
+        = link_to "CART", cart_path
 
-      .col-md-3
+      .col-sm-3
         %ul.with_delimiter.user
           - if user_signed_in?
             %li= link_to "Settings", edit_user_customer_path(current_user.id)
