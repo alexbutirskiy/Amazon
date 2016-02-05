@@ -46,6 +46,6 @@
       .col-sm-2
         = submit_tag('UPDATE', class: 'btn btn-default pull-left')
       .col-sm-2
-        = link_to('CHECKOUT', '#', class: 'btn btn-default')
+        = link_to('CHECKOUT', checkout_cart_path, method: :put, class: 'btn btn-default')
     
 

@@ -27,5 +27,6 @@ Rails.application.routes.draw do
 
   resource :cart, only: [:show, :update, :destroy] do
     resources :order_items, only: [:create, :destroy]
+    put 'checkout'
   end
 end

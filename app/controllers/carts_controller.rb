@@ -3,7 +3,6 @@ class CartsController < ApplicationController
   before_action :prepare_items, only: [:show, :update]
 
   def show
-
   end
 
   def update
@@ -25,6 +24,12 @@ class CartsController < ApplicationController
     redirect_to(books_path)
   end
 
+  def checkout
+    order = Order.find_by(customer: current_user.customer, state: 'cart')
+    order.checkout!
+    redirect_to(cart_path)
+  end
+
 
   private
 
@@ -41,7 +46,7 @@ class CartsController < ApplicationController
   end
 
   def calc_subtotal
-        @subtotal = @items.inject(0) do |sum, item|  
+        @items.inject(0) do |sum, item|  
       sum + item.price * item.quantity
     end
   end
