@@ -10,8 +10,8 @@ RSpec.describe Order, type: :model do
       it { should respond_to(attribute) }
     end
 
-    it "should sets 'state' to 'in_progress' on creation" do
-      expect(create(:order).state).to eq 'in_progress'
+    it "should sets 'state' to 'cart' on creation" do
+      expect(create(:order).state).to eq 'cart'
     end
   end
 
@@ -19,12 +19,6 @@ RSpec.describe Order, type: :model do
     it "is valid if 'total_price' 'completed_date' 'state' present" do
       expect(build(:order)).to be_valid
     end
-
-    requaired_fields.each do |attribute|
-      it { should validate_presence_of(attribute) }
-    end
-
-    it { should validate_inclusion_of(:state).in_array(Order::States.all) }
   end
 
   context 'Associations' do
@@ -37,23 +31,6 @@ RSpec.describe Order, type: :model do
 
   context 'Callbacks' do
     let(:order) { Order.new }
-    context '#set_state method' do
-
-      it 'is calling before validation' do
-        expect(order).to receive(:set_state)
-        order.valid?
-      end
-
-      it "sets 'state' attribute to 'in_progress' if it is nil" do
-        order.valid?
-        expect(order.state).to eq Order::States::IN_PROGRESS
-      end
-
-      it "doesn't change 'state' attribute if it is not nil" do
-        order.state = 'not_nil'
-        expect { order.valid? }.to_not change{ order.state }
-      end
-    end
 
     context '#update_total_price' do
       it 'is calling before save' do
@@ -84,7 +61,7 @@ RSpec.describe Order, type: :model do
       items = double('Order Items')
       expect(order).to receive(:order_items).and_return(items)
       expect(items).to receive(:create)
-        .with(book: book, quantity: count1, price: count1 * book.price)
+        .with(book: book, quantity: count1, price: book.price)
       expect(order).to receive(:update_total_price)
       order.add_book book, count1
     end

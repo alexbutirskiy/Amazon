@@ -1,14 +1,5 @@
 class Order < ActiveRecord::Base
   include AASM
-  class States
-    IN_PROGRESS = 'in_progress'
-    COMPLETED = 'completed'
-    SHIIPED = 'shipped'
-
-    def self.all
-      constants.map { |c| const_get(c) }
-    end
-  end
 
   belongs_to :customer
   belongs_to :credit_card
@@ -54,10 +45,6 @@ class Order < ActiveRecord::Base
   end
 
   private
-
-  def set_state
-    self.state ||= States::IN_PROGRESS
-  end
 
   def update_total_price
     self.total_price = order_items.inject(0) do |sum, item|

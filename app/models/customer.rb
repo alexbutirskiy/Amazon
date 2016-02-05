@@ -10,7 +10,7 @@ class Customer < ActiveRecord::Base
   validates :lastname, presence: true
 
   def order_in_progress
-    orders.where(state: 'in_progress').first
+    orders.where(state: 'cart').first
   end
 
   def name

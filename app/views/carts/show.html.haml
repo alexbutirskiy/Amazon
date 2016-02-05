@@ -29,6 +29,23 @@
             = "$#{item.total_price}"
           .pull-right
             = link_to('X', cart_order_item_path(item), method: :delete, class: 'btn btn-delete')
-      %br
-    = submit_tag('UPDATE CART', class: 'btn btn-default')
+    .row.subtotal
+      .col-sm-10
+        .pull-right
+          SUBTOTAL:
+      .col-sm-2
+        .price.pull-left
+          = "$#{@subtotal}"
+    .row.buttons
+      .col-sm-2
+        = link_to('EMPTY CART', cart_path, method: :delete, class: 'btn btn-default')
+      .col-sm-4
+        = link_to('CONTINUE SHOPPING', books_path, class: 'btn btn-default')
+      .col-sm-2
+        = text_field_tag("coupon", '', placeholder: 'Coupon code', class: 'coupon_field')
+      .col-sm-2
+        = submit_tag('UPDATE', class: 'btn btn-default pull-left')
+      .col-sm-2
+        = link_to('CHECKOUT', '#', class: 'btn btn-default')
+    
 

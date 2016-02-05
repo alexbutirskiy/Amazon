@@ -44,9 +44,9 @@ RSpec.describe Customer, type: :model do
         customer = create(:customer)
         create_list(:order, 10, 
           customer: customer, 
-          state: Order::States::COMPLETED)
+          state: 'completed')
         order = Order.all.order("RANDOM()").first
-        order.update(state: 'in_progress')
+        order.update(state: 'cart')
 
         expect(customer.order_in_progress).to eq order
       end

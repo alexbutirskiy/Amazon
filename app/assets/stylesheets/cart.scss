@@ -4,6 +4,12 @@
     width: 2.8em !important;
   }
 
+  .coupon_field {
+    font-size: 0.9em;
+    width: 9em !important;
+    margin-top: 3px;
+  }
+
   .price {
     font-size: 1em;
     font-weight: bold;
@@ -17,5 +23,13 @@
       color: red;
       background-color: #FFF0F0
     }
+  }
+
+  .subtotal {
+    border-top: 2px dotted;
+  }
+
+  .buttons {
+    margin-top: 1em;
   }
 }
