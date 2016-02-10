@@ -12,7 +12,7 @@
       .col-sm-2.cart
         = link_to "CART", cart_path
 
-      .col-sm-3
+      .col-md-3.col-sm-2
         %ul.with_delimiter.user
           - if user_signed_in?
             %li= link_to "Settings", edit_user_customer_path(current_user.id)

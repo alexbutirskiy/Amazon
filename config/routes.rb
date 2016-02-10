@@ -29,4 +29,14 @@ Rails.application.routes.draw do
     resources :order_items, only: [:create, :destroy]
     put 'checkout'
   end
+
+  resources :orders, only: [:index, :show] do
+    get   'addresses',    to: 'checkouts#edit_addresses'
+    patch 'addresses',    to: 'checkouts#update_addresses'
+    post  'addresses',    to: 'checkouts#update_addresses'
+    get   'delivery',     to: 'checkouts#edit_delivery'
+    patch 'delivery',     to: 'checkouts#update_delivery'
+    get   'credit_card',  to: 'checkouts#edit_credit_card'
+    patch 'credit_card',  to: 'checkouts#update_credit_card'
+  end
 end

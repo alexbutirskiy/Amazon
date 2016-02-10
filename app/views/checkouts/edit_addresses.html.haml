@@ -1,0 +1,22 @@
+.container.checkout
+  .row
+    = render 'links', order: @order
+  = form_tag(order_addresses_path(@order)) do
+    .row.addresses
+      .col-sm-4
+        .row
+          %h4= 'BILLING ADDRESS'
+        .row
+          = render 'addresses', type: 'billing'
+      .col-sm-4
+        .row
+          %h4= 'SHIPPING ADDRESS'
+        .row
+          = render 'addresses', type: 'shipping'
+      .col-sm-4
+        .row.text-center
+          %h4= 'ORDER SUMMARY'
+          = render 'order_summary'
+    .row
+      .form-group
+        = submit_tag( 'SAVE AND CONTINUE', class: 'btn btn-default')

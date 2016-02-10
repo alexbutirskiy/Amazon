@@ -1,0 +1,9 @@
+.col-sm-2.page_name
+  Checkout
+.col-sm-10
+  %ul.list-inline.links
+    %li= order.may_set_addresses? ? link_to('ADDRESSES') : 'ADDRESSES'
+    %li= order.may_set_delivery? ? link_to('DELIVERY')  : 'DELIVERY'
+    %li= order.may_set_payment? ? link_to('PAYMENT')   : 'PAYMENT'
+    %li= order.may_confirmed? ? link_to('CONFIRM')   : 'CONFIRM'
+    %li= (order.state == 'completed') ? link_to('COMPLETE')  : 'COMPLETE'

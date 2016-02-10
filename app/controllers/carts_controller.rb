@@ -18,16 +18,16 @@ class CartsController < ApplicationController
   end
 
   def destroy
-    order = Order.find_by(customer: current_user.customer, state: 'cart')
+    order = cart_order
     order.delete if order
 
     redirect_to(books_path)
   end
 
   def checkout
-    order = Order.find_by(customer: current_user.customer, state: 'cart')
+    order = cart_order
     order.checkout!
-    redirect_to(cart_path)
+    redirect_to(order_addresses_path(order))
   end
 
 
@@ -38,9 +38,7 @@ class CartsController < ApplicationController
   end
 
   def prepare_items
-    order = Order.find_by(customer: current_user.customer, state: 'cart')
-    order ||= Order.new(customer: current_user.customer)
-
+    order = cart_order || Order.new(customer: current_user.customer)
     @items = order.order_items
     @subtotal = calc_subtotal
   end
@@ -49,5 +47,13 @@ class CartsController < ApplicationController
         @items.inject(0) do |sum, item|  
       sum + item.price * item.quantity
     end
+  end
+
+  def cart_order
+    Order.where(customer: current_user.customer, 
+                state: ['cart',
+                        'wait_addresses',
+                        'wait_delivery',
+                        'wait_payment']).first
   end
 end

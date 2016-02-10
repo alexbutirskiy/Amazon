@@ -1,0 +1,15 @@
+- address = instance_variable_get("@#{type}_address")
+.form-group
+  = text_field_tag("#{type}_address[firstname]", address.firstname, placeholder: 'First name', class: 'form-control')
+.form-group
+  = text_field_tag("#{type}_address[lastname]", address.lastname, placeholder: 'Last name', class: 'form-control')
+.form-group
+  = text_field_tag("#{type}_address[address]", address.address, placeholder: 'Street address', class: 'form-control')
+.form-group
+  = text_field_tag("#{type}_address[city]", address.city, placeholder: 'City', class: 'form-control')
+.form-group
+  = text_field_tag("#{type}_address[country]", address.country, placeholder: 'Country', class: 'form-control')
+.form-group
+  = text_field_tag("#{type}_address[zipcode]", address.zipcode, placeholder: 'Zip', class: 'form-control')
+.form-group
+  = text_field_tag("#{type}_address[phone]", address.phone, placeholder: 'Phone', class: 'form-control')

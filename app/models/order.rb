@@ -12,7 +12,6 @@ class Order < ActiveRecord::Base
 
   before_save :update_total_price
 
-  # TODO What should we do if book price changes durign order?
   def add_book(book, quantity = 1)
     save if new_record?
     order_items.create(book: book, quantity: quantity.to_i, price: book.price)
@@ -22,25 +21,37 @@ class Order < ActiveRecord::Base
   aasm column: :state do
     state :cart, initial: true
     state :wait_addresses
-    state :wait_delivery_methd
+    state :wait_delivery
     state :wait_payment
-    state :wait_confirm
-    state :wait_deliverence_confirmation
+    state :confirming
+    state :delivering
     state :completed
 
     event :checkout do
-      transitions from: [ :cart, :wait_addresses, :wait_delivery_methd, 
-                          :wait_payment, :wait_confirm ],
+      transitions from: [ :cart, :wait_addresses, :wait_delivery, 
+                          :wait_payment],
                   to: :wait_addresses
     end
 
     event :set_addresses do
-      transitions from: :wait_addresses, 
-      to: :wait_delivery_methd
+      transitions from: [:wait_addresses, :wait_delivery, :wait_payment], 
+      to: :wait_delivery
     end
 
-    event :set_delivery_method do
-      transitions from: :wait_delivery_methd, to: :wait_payment
+    event :set_delivery do
+      transitions from: [:wait_delivery, :wait_payment], to: :wait_payment
+    end
+
+    event :set_payment do
+      transitions from: [:wait_payment, :confirming], to: :confirming
+    end
+
+    event :confirmed do
+      transitions from: :confirming, to: :delivering
+    end
+
+    event :delivered do
+      transitions from: :delivering, to: :completed
     end
   end
 
